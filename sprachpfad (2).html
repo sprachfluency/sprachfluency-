@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprachfluency — Ton chemin vers l'allemand fluide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============ DESIGN TOKENS ============ */
+:root{
+  --paper:#F6F3EC;
+  --paper-alt:#EEE9DD;
+  --card-bg:#FFFFFF;
+  --ink:#211F1B;
+  --ink-soft:#5C584E;
+  --ink-faint:#8B8577;
+  --gold:#AD8226;
+  --gold-soft:#E8D6A8;
+  --red:#C41E2F;
+  --red-soft:#F5D6D9;
+  --brick:#A23A28;
+  --brick-soft:#F1DAD2;
+  --line:#DED7C6;
+  --radius-s:6px;
+  --radius-m:12px;
+  --radius-l:22px;
+  --shadow-card:0 1px 2px rgba(33,31,27,.06), 0 6px 20px rgba(33,31,27,.05);
+  --font-head:'Space Grotesk', sans-serif;
+  --font-body:'IBM Plex Sans', sans-serif;
+}
+:root:not([data-theme="light"]) {
+  @media (prefers-color-scheme: dark){
+    --paper:#17181A; --paper-alt:#1D1F1F; --card-bg:#212423; --ink:#EDE9DE;
+    --ink-soft:#B2AC9C; --ink-faint:#7C7869; --gold:#D6A94A; --gold-soft:#3B3220;
+    --red:#E2495C; --red-soft:#3B1E22; --brick:#DA7357; --brick-soft:#3A241D;
+    --line:#37372F; --shadow-card:0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#17181A; --paper-alt:#1D1F1F; --card-bg:#212423; --ink:#EDE9DE;
+  --ink-soft:#B2AC9C; --ink-faint:#7C7869; --gold:#D6A94A; --gold-soft:#3B3220;
+  --red:#E2495C; --red-soft:#3B1E22; --brick:#DA7357; --brick-soft:#3A241D;
+  --line:#37372F; --shadow-card:0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--paper); color:var(--ink); font-family:var(--font-body);
+  font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+h1,h2,h3,h4{font-family:var(--font-head); margin:0; letter-spacing:-0.01em; font-weight:600;}
+p{margin:0;}
+button{font-family:var(--font-body); cursor:pointer;}
+a{color:inherit;}
+.wrap{max-width:920px; margin:0 auto; padding:0 20px;}
+::selection{background:var(--gold-soft);}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms !important; transition-duration:.01ms !important;}}
+:focus-visible{outline:2px solid var(--red); outline-offset:3px; border-radius:4px;}
+
+/* ============ HEADER ============ */
+header.app-header{
+  position:sticky; top:0; z-index:40; background:var(--paper);
+  border-bottom:1px solid var(--line); backdrop-filter:blur(6px);
+}
+.header-row{display:flex; align-items:center; justify-content:space-between; padding:14px 20px; max-width:920px; margin:0 auto; gap:16px;}
+.brand{display:flex; align-items:center; gap:9px; cursor:pointer; background:none; border:none; padding:0;}
+.brand-mark{width:30px; height:30px; border-radius:8px; background:var(--red); color:#fff; display:flex; align-items:center; justify-content:center; font-family:var(--font-head); font-weight:700; font-size:14px; flex-shrink:0;}
+.brand-name{font-family:var(--font-head); font-weight:700; font-size:17px; color:var(--ink);}
+.header-stats{display:flex; align-items:center; gap:10px;}
+.stat-pill{display:flex; align-items:center; gap:5px; background:var(--card-bg); border:1px solid var(--line); border-radius:99px; padding:6px 12px; font-size:13px; font-weight:500; color:var(--ink-soft); white-space:nowrap;}
+.stat-pill b{color:var(--ink); font-weight:600;}
+.theme-toggle{width:34px; height:34px; border-radius:99px; border:1px solid var(--line); background:var(--card-bg); display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0;}
+
+/* ============ MAIN VIEWS ============ */
+main{min-height:calc(100vh - 64px); padding-bottom:60px;}
+.view{display:none; animation:fadein .35s ease;}
+.view.active{display:block;}
+@keyframes fadein{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
+
+/* ---- HERO ---- */
+.hero{padding:56px 20px 40px;}
+.hero-inner{max-width:640px; margin:0 auto; text-align:left;}
+.hero-eyebrow-wordmark{font-family:var(--font-head); font-size:14px; color:var(--red); font-weight:600; margin-bottom:14px;}
+.hero h1{font-size:44px; line-height:1.08; margin-bottom:18px;}
+.hero h1 .accent{color:var(--gold);}
+.hero p.lead{font-size:17px; color:var(--ink-soft); max-width:52ch; margin-bottom:30px;}
+.hero-actions{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:44px;}
+.btn{border-radius:var(--radius-s); padding:13px 22px; font-size:15px; font-weight:600; border:1px solid transparent; transition:transform .15s ease, box-shadow .15s ease;}
+.btn:active{transform:scale(.98);}
+.btn-primary{background:var(--red); color:#fff;}
+.btn-primary:hover{box-shadow:0 4px 14px rgba(44,91,76,.28);}
+.btn-secondary{background:var(--card-bg); color:var(--ink); border-color:var(--line);}
+.btn-secondary:hover{border-color:var(--ink-faint);}
+.btn-ghost{background:none; border:none; color:var(--red); font-weight:600; padding:8px 4px;}
+.hero-path{display:flex; align-items:flex-end; gap:0; margin-top:8px;}
+.hero-path .step{flex:1; text-align:center; position:relative;}
+.hero-path .step .dot{width:14px; height:14px; border-radius:50%; background:var(--line); margin:0 auto 8px; border:3px solid var(--paper); box-shadow:0 0 0 1px var(--line);}
+.hero-path .step.filled .dot{background:var(--gold); box-shadow:0 0 0 1px var(--gold);}
+.hero-path .step .lbl{font-family:var(--font-head); font-size:13px; color:var(--ink-faint); font-weight:600;}
+.hero-path .step.filled .lbl{color:var(--ink);}
+.hero-path .bar{position:absolute; top:6px; left:-50%; width:100%; height:2px; background:var(--line); z-index:-1;}
+.hero-path .step.filled .bar{background:var(--gold);}
+.hero-path .step:first-child .bar{display:none;}
+
+/* ---- PLACEMENT TEST ---- */
+.test-shell{max-width:600px; margin:0 auto; padding:40px 20px;}
+.test-progress{height:5px; background:var(--line); border-radius:99px; overflow:hidden; margin-bottom:28px;}
+.test-progress-fill{height:100%; background:var(--gold); transition:width .3s ease;}
+.test-q-label{font-size:13px; font-weight:600; color:var(--red); margin-bottom:10px; font-family:var(--font-head);}
+.test-q{font-size:22px; margin-bottom:22px;}
+.opt-list{display:flex; flex-direction:column; gap:10px;}
+.opt{display:block; width:100%; text-align:left; padding:14px 16px; border-radius:var(--radius-m); border:1px solid var(--line); background:var(--card-bg); font-size:15px; color:var(--ink); transition:border-color .15s ease, background .15s ease;}
+.opt:hover{border-color:var(--red);}
+.opt.selected{border-color:var(--gold); background:var(--gold-soft);}
+.opt.correct{border-color:var(--gold); background:var(--gold-soft);}
+.opt.incorrect{border-color:var(--brick); background:var(--brick-soft);}
+.test-nav{display:flex; justify-content:flex-end; margin-top:26px;}
+
+/* ---- LEVEL MAP ---- */
+.section-head{padding:36px 20px 20px;}
+.section-head h2{font-size:28px;}
+.section-head p{color:var(--ink-soft); margin-top:6px; font-size:15px;}
+.level-path{max-width:640px; margin:0 auto; padding:10px 20px 40px; display:flex; flex-direction:column; gap:0;}
+.level-row{display:flex; align-items:center; gap:18px; position:relative; padding:14px 0;}
+.level-row .connector{position:absolute; left:23px; top:-6px; width:2px; height:20px; background:var(--line);}
+.level-row:first-child .connector{display:none;}
+.level-node{width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--font-head); font-weight:700; font-size:16px; flex-shrink:0; border:2px solid var(--line); background:var(--card-bg); color:var(--ink-faint);}
+.level-node.unlocked{border-color:var(--red); color:var(--red);}
+.level-node.mastered{background:var(--gold); border-color:var(--gold); color:var(--ink);}
+.level-card{flex:1; background:var(--card-bg); border:1px solid var(--line); border-radius:var(--radius-m); padding:16px 18px; display:flex; align-items:center; justify-content:space-between; gap:12px; box-shadow:var(--shadow-card); cursor:pointer; transition:border-color .15s ease;}
+.level-card:hover{border-color:var(--red);}
+.level-card.locked{opacity:.5; cursor:not-allowed;}
+.level-card-title{font-family:var(--font-head); font-weight:600; font-size:17px;}
+.level-card-sub{font-size:13px; color:var(--ink-soft); margin-top:2px;}
+.level-progress-mini{width:56px; height:56px; flex-shrink:0;}
+
+/* ---- DASHBOARD ---- */
+.dash-header{padding:30px 20px 10px; max-width:920px; margin:0 auto;}
+.back-link{display:inline-flex; align-items:center; gap:6px; font-size:14px; color:var(--ink-soft); font-weight:500; margin-bottom:16px; background:none; border:none; padding:0;}
+.back-link:hover{color:var(--ink);}
+.dash-title-row{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;}
+.dash-title-row h2{font-size:30px;}
+.level-badge-tag{font-size:13px; font-weight:600; color:var(--red); background:var(--red-soft); padding:4px 10px; border-radius:99px; font-family:var(--font-head);}
+.theme-grid{max-width:920px; margin:0 auto; padding:20px 20px 40px; display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+@media(max-width:640px){.theme-grid{grid-template-columns:1fr;}}
+.theme-card{background:var(--card-bg); border:1px solid var(--line); border-radius:var(--radius-l); padding:22px; box-shadow:var(--shadow-card); cursor:pointer; transition:transform .15s ease, border-color .15s ease;}
+.theme-card:hover{border-color:var(--red); transform:translateY(-2px);}
+.theme-card h3{font-size:19px; margin-bottom:6px;}
+.theme-card p{font-size:14px; color:var(--ink-soft); margin-bottom:16px;}
+.pill-row{display:flex; gap:6px; flex-wrap:wrap;}
+.pip{width:9px; height:9px; border-radius:50%; background:var(--line);}
+.pip.done{background:var(--gold);}
+.skill-labels{display:flex; gap:12px; margin-top:10px; font-size:11px; color:var(--ink-faint); font-family:var(--font-head); font-weight:600;}
+
+/* ---- THEME / SKILL VIEW ---- */
+.skill-header{max-width:760px; margin:0 auto; padding:28px 20px 0;}
+.tabs{display:flex; gap:4px; max-width:760px; margin:20px auto 0; padding:0 20px; border-bottom:1px solid var(--line);}
+.tab-btn{background:none; border:none; padding:12px 16px; font-size:14px; font-weight:600; color:var(--ink-faint); border-bottom:2px solid transparent; margin-bottom:-1px; font-family:var(--font-head);}
+.tab-btn.active{color:var(--ink); border-color:var(--gold);}
+.tab-panel{max-width:760px; margin:0 auto; padding:28px 20px 60px; display:none;}
+.tab-panel.active{display:block;}
+
+.lesson-block{margin-bottom:24px;}
+.lesson-block h4{font-size:15px; color:var(--red); font-family:var(--font-head); margin-bottom:10px;}
+.explain-box{background:var(--card-bg); border:1px solid var(--line); border-radius:var(--radius-m); padding:20px; font-size:15.5px; line-height:1.65;}
+.explain-box .rule{margin-bottom:14px;}
+.example-line{display:flex; gap:10px; align-items:baseline; padding:8px 0; border-top:1px solid var(--line); font-size:14.5px;}
+.example-line:first-of-type{border-top:none;}
+.example-de{font-weight:600; color:var(--ink);}
+.example-fr{color:var(--ink-soft); font-size:13.5px;}
+
+.flash-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; margin-bottom:20px;}
+.flashcard{aspect-ratio:1.1/1; perspective:800px; cursor:pointer;}
+.flashcard-inner{position:relative; width:100%; height:100%; transition:transform .5s; transform-style:preserve-3d;}
+.flashcard.flipped .flashcard-inner{transform:rotateY(180deg);}
+.flash-face{position:absolute; inset:0; backface-visibility:hidden; border-radius:var(--radius-m); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; text-align:center; padding:12px; font-weight:600; font-size:15px;}
+.flash-front{background:var(--card-bg); color:var(--ink);}
+.flash-back{background:var(--gold-soft); color:var(--ink); transform:rotateY(180deg); font-size:14px;}
+
+.redemittel-list{display:flex; flex-direction:column; gap:10px; margin-bottom:20px;}
+.rm-card{background:var(--card-bg); border:1px solid var(--line); border-left:3px solid var(--gold); border-radius:var(--radius-s); padding:14px 16px;}
+.rm-phrase{font-weight:600; font-size:15.5px;}
+.rm-use{font-size:13px; color:var(--ink-soft); margin-top:4px;}
+
+.hoeren-player{background:var(--card-bg); border:1px solid var(--line); border-radius:var(--radius-m); padding:22px; margin-bottom:20px;}
+.play-btn{display:flex; align-items:center; gap:10px; background:var(--red); color:#fff; border:none; border-radius:99px; padding:12px 20px; font-weight:600; font-size:14px;}
+.play-btn:disabled{opacity:.5; cursor:wait;}
+.hoeren-transcript{margin-top:16px; font-size:14px; color:var(--ink-faint); border-top:1px solid var(--line); padding-top:14px; display:none;}
+.hoeren-transcript.shown{display:block;}
+.link-btn{background:none; border:none; color:var(--red); font-size:13px; font-weight:600; padding:0; margin-top:10px;}
+
+.exercise-box{background:var(--paper-alt); border:1px solid var(--line); border-radius:var(--radius-l); padding:24px; margin-top:10px;}
+.exercise-box h4{font-family:var(--font-head); font-size:16px; margin-bottom:16px;}
+.q-block{margin-bottom:22px;}
+.q-block:last-of-type{margin-bottom:0;}
+.q-text{font-weight:600; margin-bottom:10px; font-size:15px;}
+.q-feedback{font-size:13px; margin-top:8px; font-weight:500;}
+.q-feedback.ok{color:var(--gold);}
+.q-feedback.bad{color:var(--brick);}
+.exercise-result{text-align:center; padding:20px 0 4px;}
+.exercise-result .score{font-family:var(--font-head); font-size:34px; color:var(--gold);}
+.exercise-result p{color:var(--ink-soft); margin-top:6px; font-size:14px;}
+
+/* ---- TOAST / XP POP ---- */
+.toast{position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--ink); color:var(--paper); padding:12px 20px; border-radius:99px; font-size:14px; font-weight:600; opacity:0; pointer-events:none; transition:all .3s ease; z-index:100; display:flex; align-items:center; gap:8px; box-shadow:0 10px 30px rgba(0,0,0,.25);}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+/* progress ring */
+svg.ring circle{fill:none; stroke-width:5;}
+.ring-bg{stroke:var(--line);}
+.ring-fg{stroke:var(--gold); stroke-linecap:round; transition:stroke-dashoffset .5s ease;}
+
+.badge-shelf{display:flex; gap:10px; flex-wrap:wrap; max-width:920px; margin:0 auto; padding:0 20px 40px;}
+.badge-chip{display:flex; align-items:center; gap:7px; background:var(--card-bg); border:1px solid var(--line); border-radius:99px; padding:7px 14px 7px 8px; font-size:13px; font-weight:500;}
+.badge-chip .ic{width:24px; height:24px; border-radius:50%; background:var(--gold-soft); display:flex; align-items:center; justify-content:center; font-size:13px;}
+
+/* footer / privacy notice */
+.app-footer{border-top:1px solid var(--line); padding:22px 20px 28px; margin-top:20px;}
+.app-footer .wrap{display:flex; flex-direction:column; gap:6px; max-width:920px;}
+.app-footer p{font-size:12.5px; color:var(--ink-faint); line-height:1.6;}
+.app-footer p strong{color:var(--ink-soft); font-weight:600;}
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-row">
+    <button class="brand" onclick="goHero()">
+      <span class="brand-mark">SF</span>
+      <span class="brand-name">Sprachfluency</span>
+    </button>
+    <div class="header-stats">
+      <span class="stat-pill" id="stat-streak">🔥 <b>0</b></span>
+      <span class="stat-pill" id="stat-xp">✦ <b>0</b> XP</span>
+      <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Changer d'apparence">☾</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===== HERO ===== -->
+  <section class="view active" id="view-hero">
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="hero-eyebrow-wordmark">Von A1 bis C1</div>
+        <h1>Parle l'allemand <span class="accent">couramment</span>, pas seulement correctement.</h1>
+        <p class="lead">Grammaire, vocabulaire thématique, Redemittel pour le Schreiben et le Sprechen, et exercices d'écoute — un parcours complet et interactif, à ton rythme.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="startPlacement()">Faire le test de niveau</button>
+          <button class="btn btn-secondary" onclick="showLevelMap()">Choisir mon niveau moi-même</button>
+        </div>
+        <div class="hero-path" id="hero-path-preview"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PLACEMENT TEST ===== -->
+  <section class="view" id="view-test">
+    <div class="test-shell">
+      <div class="test-progress"><div class="test-progress-fill" id="test-progress-fill" style="width:0%"></div></div>
+      <div class="test-q-label" id="test-q-label">Question 1/12</div>
+      <div class="test-q" id="test-q-text"></div>
+      <div class="opt-list" id="test-opts"></div>
+      <div class="test-nav"><button class="btn btn-ghost" onclick="goHero()">Annuler</button></div>
+    </div>
+  </section>
+
+  <!-- ===== LEVEL MAP ===== -->
+  <section class="view" id="view-map">
+    <div class="section-head">
+      <button class="back-link" onclick="goHero()">← Accueil</button>
+      <h2>Ton parcours</h2>
+      <p>Choisis un niveau pour commencer. Chaque niveau se débloque en terminant le précédent — ou choisis-le librement.</p>
+    </div>
+    <div class="level-path" id="level-path"></div>
+  </section>
+
+  <!-- ===== DASHBOARD (thèmes d'un niveau) ===== -->
+  <section class="view" id="view-dashboard">
+    <div class="dash-header">
+      <button class="back-link" onclick="showLevelMap()">← Tous les niveaux</button>
+      <div class="dash-title-row">
+        <h2 id="dash-level-title">Niveau</h2>
+        <span class="level-badge-tag" id="dash-level-tag"></span>
+      </div>
+      <p style="color:var(--ink-soft); font-size:14px; margin-top:6px;" id="dash-level-desc"></p>
+    </div>
+    <div class="theme-grid" id="theme-grid"></div>
+  </section>
+
+  <!-- ===== THEME (skills) ===== -->
+  <section class="view" id="view-skill">
+    <div class="skill-header">
+      <button class="back-link" id="skill-back">← Retour</button>
+      <h2 id="skill-title">Thème</h2>
+    </div>
+    <div class="tabs" id="skill-tabs"></div>
+    <div class="tab-panel active" id="panel-grammar"></div>
+    <div class="tab-panel" id="panel-vocab"></div>
+    <div class="tab-panel" id="panel-redemittel"></div>
+    <div class="tab-panel" id="panel-hoeren"></div>
+  </section>
+
+  <!-- ===== PROFILE / BADGES ===== -->
+  <section class="view" id="view-profile">
+    <div class="section-head">
+      <button class="back-link" onclick="goHero()">← Accueil</button>
+      <h2>Tes récompenses</h2>
+      <p>Chaque badge marque une étape franchie sur ton chemin vers le C1.</p>
+    </div>
+    <div class="badge-shelf" id="badge-shelf"></div>
+  </section>
+
+</main>
+
+<footer class="app-footer">
+  <div class="wrap">
+    <p><strong>Confidentialité :</strong> Sprachfluency ne collecte aucune donnée personnelle. Il n'y a ni compte, ni email, ni mot de passe, et rien n'est envoyé vers un serveur.</p>
+    <p><strong>Stockage local :</strong> ta progression (niveau, XP, badges) est enregistrée uniquement dans ce navigateur, sur cet appareil. Si tu vides le cache du navigateur, changes d'appareil ou utilises la navigation privée, ta progression sera perdue.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= CONTENT DATA ================= */
+const LEVELS = [
+  {id:'A1', label:'Découverte', desc:"Les bases pour se présenter et vivre le quotidien.",
+    themes:[
+      {id:'a1-alltag', title:'Begrüßung & Alltag', sub:'Se saluer, se présenter',
+        grammar:{
+          title:"Le verbe « sein » (être) au présent",
+          rule:"« Sein » est irrégulier et sert à se présenter, décrire un état. Il faut le connaître par cœur : ich bin, du bist, er/sie/es ist, wir sind, ihr seid, sie/Sie sind.",
+          examples:[["Ich bin müde.","Je suis fatigué(e)."],["Wie geht es dir?","Comment vas-tu ?"],["Wir sind Freunde.","Nous sommes amis."]],
+          quiz:[
+            {q:"Er ___ Lehrer.", opts:["bin","bist","ist","sind"], a:2},
+            {q:"Wir ___ aus Abidjan.", opts:["sind","bist","ist","bin"], a:0},
+            {q:"___ du müde?", opts:["Bin","Bist","Ist","Seid"], a:1},
+            {q:"Ihr ___ sehr nett.", opts:["ist","sind","seid","bin"], a:2}
+          ]},
+        vocab:{items:[["Hallo","Salut"],["Tschüss","Au revoir (familier)"],["Guten Morgen","Bonjour (matin)"],["Guten Abend","Bonsoir"],["Wie geht's?","Comment ça va ?"],["Danke","Merci"],["Bitte","S'il te plaît / je t'en prie"],["Ja","Oui"],["Nein","Non"],["Entschuldigung","Excusez-moi"]],
+          quiz:[
+            {q:"Comment dit-on « merci » ?", opts:["Bitte","Danke","Tschüss","Ja"], a:1},
+            {q:"« Guten Abend » veut dire :", opts:["Bonjour","Bonne nuit","Bonsoir","Au revoir"], a:2},
+            {q:"« Entschuldigung » sert à :", opts:["dire oui","s'excuser","saluer","remercier"], a:1}
+          ]},
+        redemittel:{items:[
+            ["Wie geht es Ihnen?","Pour demander (poliment) comment va quelqu'un."],
+            ["Mir geht es gut, danke. Und Ihnen?","Répondre puis relancer la question — essentiel en Sprechen."],
+            ["Ich heiße… / Mein Name ist…","Se présenter à l'oral comme à l'écrit."]
+          ],
+          quiz:[{q:"Pour relancer poliment une question sur l'état de santé, tu dis :", opts:["Ich heiße Anna.","Und Ihnen?","Tschüss!","Entschuldigung."], a:1}]},
+        hoeren:{text:"Guten Tag! Wie heißen Sie? Ich heiße Anna. Und Sie? Ich heiße Markus. Freut mich, Markus!",
+          questions:[{q:"Wie heißt die Frau im Dialog?", opts:["Anna","Erika","Sabine"], a:0},{q:"Was sagt Markus am Ende?", opts:["Tschüss","Freut mich","Danke schön"], a:1}]}
+      },
+      {id:'a1-familie', title:'Familie', sub:'Parler de sa famille',
+        grammar:{
+          title:"Les articles possessifs (mein, dein…)",
+          rule:"L'article possessif s'accorde avec le nom qui suit : mein Vater (masc.), meine Mutter (fém.), mein Kind (neutre). Au pluriel, on ajoute -e : meine Eltern.",
+          examples:[["Das ist mein Vater.","C'est mon père."],["Das ist meine Schwester.","C'est ma sœur."],["Ich habe zwei Geschwister.","J'ai deux frères et sœurs."]],
+          quiz:[
+            {q:"Das ist ___ Mutter. (moi)", opts:["mein","meine","meinen","meins"], a:1},
+            {q:"___ Bruder wohnt in Berlin. (moi)", opts:["Meine","Mein","Meinen","Meiner"], a:1},
+            {q:"Wie heißen ___ Eltern? (toi)", opts:["dein","deine","deinen","deins"], a:1}
+          ]},
+        vocab:{items:[["die Mutter","la mère"],["der Vater","le père"],["die Schwester","la sœur"],["der Bruder","le frère"],["die Eltern","les parents"],["die Großmutter","la grand-mère"],["der Großvater","le grand-père"],["das Kind","l'enfant"]],
+          quiz:[
+            {q:"« der Bruder » signifie :", opts:["la sœur","le frère","la mère","le père"], a:1},
+            {q:"Comment dit-on « les parents » ?", opts:["die Eltern","die Kinder","die Familie","die Geschwister"], a:0}
+          ]},
+        redemittel:{items:[
+            ["Ich habe eine große/kleine Familie.","Décrire sa famille simplement."],
+            ["Wir sind zu fünft.","Dire le nombre de personnes dans la famille."]
+          ],
+          quiz:[{q:"Pour dire « nous sommes cinq », on utilise :", opts:["Ich habe fünf.","Wir sind zu fünft.","Meine Familie ist fünf.","Fünf Familie."], a:1}]},
+        hoeren:{text:"Das ist meine Familie. Mein Vater heißt Paul, meine Mutter heißt Marie. Ich habe eine Schwester. Sie heißt Léa.",
+          questions:[{q:"Wie heißt die Schwester?", opts:["Marie","Léa","Paul"], a:1},{q:"Wie viele Geschwister hat die Person?", opts:["Keine","Eine","Zwei"], a:1}]}
+      }
+    ]},
+  {id:'A2', label:'Premiers pas assurés', desc:"Voyager, faire ses courses, gérer le quotidien seul(e).",
+    themes:[
+      {id:'a2-reisen', title:'Reisen', sub:'Voyager, se déplacer',
+        grammar:{
+          title:"Les verbes de modalité : können, müssen, wollen",
+          rule:"Le verbe modal se conjugue en 2e position, le verbe principal reste à l'infinitif en fin de phrase. Ex : Ich möchte nach Berlin fahren.",
+          examples:[["Ich möchte nach Berlin fahren.","Je voudrais aller à Berlin."],["Wir müssen den Zug nehmen.","Nous devons prendre le train."],["Kannst du mir helfen?","Peux-tu m'aider ?"]],
+          quiz:[
+            {q:"Ich ___ nach Köln fahren. (vouloir)", opts:["will","wollt","wollen","willst"], a:0},
+            {q:"Wir ___ um 8 Uhr abfahren. (devoir)", opts:["müsst","müssen","muss","musst"], a:1},
+            {q:"___ du mir bitte helfen?", opts:["Kann","Kannst","Könnt","Können"], a:1}
+          ]},
+        vocab:{items:[["der Bahnhof","la gare"],["das Ticket","le billet"],["der Flughafen","l'aéroport"],["das Gepäck","les bagages"],["die Ankunft","l'arrivée"],["die Abfahrt","le départ"],["das Hotel","l'hôtel"],["die Reservierung","la réservation"]],
+          quiz:[
+            {q:"« die Abfahrt » veut dire :", opts:["l'arrivée","le départ","le billet","les bagages"], a:1},
+            {q:"« der Flughafen » c'est :", opts:["la gare","l'hôtel","l'aéroport","le billet"], a:2}
+          ]},
+        redemittel:{items:[
+            ["Wie komme ich zum Bahnhof?","Demander son chemin."],
+            ["Wann fährt der Zug ab?","Demander un horaire de départ."],
+            ["Ich hätte gern ein Zimmer für zwei Nächte.","Réserver poliment à l'hôtel."]
+          ],
+          quiz:[{q:"Pour réserver une chambre poliment :", opts:["Ich will ein Zimmer.","Ich hätte gern ein Zimmer.","Zimmer, bitte, jetzt.","Gib mir ein Zimmer."], a:1}]},
+        hoeren:{text:"Entschuldigung, wie komme ich zum Bahnhof? Gehen Sie geradeaus und dann links. Der Zug nach München fährt um 14 Uhr ab.",
+          questions:[{q:"Wohin fährt der Zug?", opts:["München","Berlin","Köln"], a:0},{q:"Um wie viel Uhr fährt der Zug ab?", opts:["12 Uhr","14 Uhr","16 Uhr"], a:1}]}
+      },
+      {id:'a2-einkaufen', title:'Einkaufen', sub:'Faire les courses',
+        grammar:{
+          title:"L'accusatif après haben, kaufen, möchten",
+          rule:"Après ces verbes, le nom masculin change : der → den. Le féminin et le neutre ne changent pas. Ex : Ich kaufe einen Rock (masc.), eine Jacke (fém.), ein Hemd (neutre).",
+          examples:[["Ich möchte einen Rock kaufen.","Je voudrais acheter une jupe."],["Hast du eine Tasche?","As-tu un sac ?"],["Ich nehme das Hemd.","Je prends la chemise."]],
+          quiz:[
+            {q:"Ich kaufe ___ Rock. (der Rock)", opts:["der","den","dem","des"], a:1},
+            {q:"Ich möchte ___ Jacke. (die Jacke)", opts:["die","der","den","dem"], a:0},
+            {q:"Haben Sie ___ Hemd in Größe M? (das Hemd)", opts:["den","dem","ein","einen"], a:2}
+          ]},
+        vocab:{items:[["der Preis","le prix"],["die Kasse","la caisse"],["billig","bon marché"],["teuer","cher"],["die Größe","la taille"],["anprobieren","essayer (un vêtement)"],["das Geschäft","le magasin"],["bezahlen","payer"]],
+          quiz:[
+            {q:"« teuer » signifie :", opts:["bon marché","cher","gratuit","joli"], a:1},
+            {q:"« anprobieren » c'est :", opts:["payer","essayer","acheter","vendre"], a:1}
+          ]},
+        redemittel:{items:[
+            ["Was kostet das?","Demander le prix."],
+            ["Haben Sie das in Größe M?","Demander une taille précise."],
+            ["Ich nehme es.","Conclure un achat."]
+          ],
+          quiz:[{q:"Pour demander le prix d'un article :", opts:["Ich nehme es.","Was kostet das?","Haben Sie das?","Ich möchte bezahlen."], a:1}]},
+        hoeren:{text:"Guten Tag, was kostet dieser Rock? Er kostet 25 Euro. Haben Sie ihn in Größe 38? Ja, einen Moment bitte.",
+          questions:[{q:"Was möchte die Kundin kaufen?", opts:["ein Hemd","einen Rock","eine Jacke"], a:1},{q:"Wie viel kostet der Rock?", opts:["15 Euro","25 Euro","35 Euro"], a:1}]}
+      }
+    ]},
+  {id:'B1', label:'Autonomie', desc:"Argumenter, écrire des lettres, comprendre des sujets concrets — le cœur de l'examen Goethe B1.",
+    themes:[
+      {id:'b1-arbeit', title:'Arbeit & Beruf', sub:'Le monde du travail',
+        grammar:{
+          title:"Les subordonnées avec weil, dass, obwohl",
+          rule:"Dans une subordonnée, le verbe conjugué passe en toute dernière position. Ex : Ich bin müde, weil ich viel gearbeitet habe. — Obwohl es regnet, gehe ich raus.",
+          examples:[["Ich bin müde, weil ich viel gearbeitet habe.","Je suis fatigué(e) car j'ai beaucoup travaillé."],["Er sagt, dass er pünktlich kommt.","Il dit qu'il viendra à l'heure."],["Obwohl es regnet, gehe ich spazieren.","Bien qu'il pleuve, je vais me promener."]],
+          quiz:[
+            {q:"Ich bleibe zu Hause, weil ich krank ___.", opts:["bin","ich bin","bin ich","bins"], a:0},
+            {q:"Sie sagt, dass sie morgen ___.", opts:["kommt sie","kommt","sie kommt","kommen"], a:1},
+            {q:"___ es kalt ist, gehen wir schwimmen.", opts:["Weil","Dass","Obwohl","Und"], a:2}
+          ]},
+        vocab:{items:[["die Bewerbung","la candidature"],["der Lebenslauf","le CV"],["das Vorstellungsgespräch","l'entretien d'embauche"],["die Erfahrung","l'expérience"],["die Fähigkeit","la compétence"],["der Kollege","le collègue"],["die Teilzeit","le temps partiel"],["die Vollzeit","le temps plein"]],
+          quiz:[
+            {q:"« das Vorstellungsgespräch » c'est :", opts:["le CV","l'entretien d'embauche","la candidature","le salaire"], a:1},
+            {q:"« die Fähigkeit » signifie :", opts:["l'expérience","le collègue","la compétence","le contrat"], a:2}
+          ]},
+        redemittel:{items:[
+            ["Meiner Meinung nach…","Introduire son opinion à l'écrit comme à l'oral."],
+            ["Ich bin der Ansicht, dass…","Formule plus formelle pour exprimer un avis."],
+            ["Ein Vorteil ist… Ein Nachteil ist…","Structurer un avantage/inconvénient — clé pour le Schreiben B1."]
+          ],
+          quiz:[{q:"Pour introduire ton opinion à l'écrit, tu commences par :", opts:["Ein Nachteil ist…","Meiner Meinung nach…","Der Kollege sagt…","Die Bewerbung ist…"], a:1}]},
+        hoeren:{text:"Ich arbeite seit drei Jahren als Ingenieurin. Die Arbeit macht mir Spaß, obwohl sie manchmal stressig ist. Nächstes Jahr möchte ich Vollzeit arbeiten.",
+          questions:[{q:"Seit wann arbeitet die Person?", opts:["Ein Jahr","Drei Jahre","Fünf Jahre"], a:1},{q:"Was möchte sie nächstes Jahr?", opts:["Teilzeit arbeiten","Vollzeit arbeiten","Aufhören"], a:1}]}
+      },
+      {id:'b1-meinung', title:'Meinung äußern', sub:'Exprimer et structurer son avis',
+        grammar:{
+          title:"Les connecteurs de cause et de conséquence",
+          rule:"« weil » et « da » (cause) envoient le verbe à la fin. « deshalb », « deswegen », « daher » (conséquence) sont suivis directement du verbe conjugué (position 2, sujet après). Ex : Es regnet, deshalb bleibe ich zu Hause.",
+          examples:[["Da ich müde bin, gehe ich früh ins Bett.","Comme je suis fatigué(e), je me couche tôt."],["Es regnet, deshalb bleibe ich zu Hause.","Il pleut, donc je reste à la maison."],["Sie hat viel gelernt, daher hat sie die Prüfung bestanden.","Elle a beaucoup révisé, c'est pourquoi elle a réussi l'examen."]],
+          quiz:[
+            {q:"Es ist kalt, ___ trage ich eine Jacke.", opts:["weil","deshalb","dass","obwohl"], a:1},
+            {q:"___ ich wenig Zeit habe, kann ich nicht kommen.", opts:["Deshalb","Da","Und","Aber"], a:1},
+            {q:"Sie ist krank, ___ bleibt sie zu Hause.", opts:["deswegen","weil","dass","obwohl"], a:0}
+          ]},
+        vocab:{items:[["die Meinung","l'opinion"],["der Vorteil","l'avantage"],["der Nachteil","l'inconvénient"],["die Ansicht","le point de vue"],["zustimmen","être d'accord"],["ablehnen","rejeter, refuser"],["die Argumentation","l'argumentation"]],
+          quiz:[
+            {q:"« zustimmen » signifie :", opts:["refuser","être d'accord","ignorer","critiquer"], a:1},
+            {q:"« der Nachteil » c'est :", opts:["l'avantage","l'opinion","l'inconvénient","l'argument"], a:2}
+          ]},
+        redemittel:{items:[
+            ["Einerseits…, andererseits…","Présenter deux points de vue opposés."],
+            ["Zusammenfassend lässt sich sagen, dass…","Conclure une prise de position à l'écrit."],
+            ["Ich stimme dem nicht zu, weil…","Exprimer poliment un désaccord."]
+          ],
+          quiz:[{q:"Pour conclure une rédaction (Stellungnahme), tu utilises :", opts:["Einerseits…","Zusammenfassend lässt sich sagen, dass…","Ich heiße…","Wie geht's?"], a:1}]},
+        hoeren:{text:"Meiner Meinung nach sollte man mehr Fahrrad fahren. Einerseits ist es gut für die Umwelt, andererseits hält es uns fit. Deshalb finde ich das Fahrrad besser als das Auto.",
+          questions:[{q:"Was findet die Person besser als das Auto?", opts:["Den Bus","Das Fahrrad","Den Zug"], a:1},{q:"Welches Argument wird NICHT genannt?", opts:["gut für die Umwelt","hält uns fit","billiger als das Auto"], a:2}]}
+      }
+    ]},
+  {id:'B2', label:'Aisance', desc:"Débattre, nuancer, comprendre l'actualité — pour aller au-delà du B1.",
+    themes:[
+      {id:'b2-gesellschaft', title:'Gesellschaft & Medien', sub:'Société et médias',
+        grammar:{
+          title:"Le passif (Passiv)",
+          rule:"Le passif se forme avec « werden » + participe passé. Présent : wird + Partizip II. Passé (Präteritum) : wurde + Partizip II. Ex : Das Problem wird diskutiert. / Die Entscheidung wurde getroffen.",
+          examples:[["Das Problem wird oft diskutiert.","Le problème est souvent discuté."],["Die Entscheidung wurde gestern getroffen.","La décision a été prise hier."],["Viele Artikel werden online gelesen.","Beaucoup d'articles sont lus en ligne."]],
+          quiz:[
+            {q:"Das Buch ___ viel gelesen.", opts:["ist","wird","hat","war"], a:1},
+            {q:"Die Entscheidung ___ letzte Woche getroffen.", opts:["wird","wurde","werden","war"], a:1},
+            {q:"Diese Frage ___ oft gestellt.", opts:["wird","wurde","sind","hat"], a:0}
+          ]},
+        vocab:{items:[["die Gesellschaft","la société"],["die Medien","les médias"],["der Einfluss","l'influence"],["die Verantwortung","la responsabilité"],["die Debatte","le débat"],["kritisieren","critiquer"]],
+          quiz:[
+            {q:"« der Einfluss » signifie :", opts:["la responsabilité","l'influence","le débat","la société"], a:1},
+            {q:"« kritisieren » veut dire :", opts:["approuver","critiquer","ignorer","débattre"], a:1}
+          ]},
+        redemittel:{items:[
+            ["Es lässt sich nicht leugnen, dass…","Affirmer un fait difficilement contestable, registre soutenu."],
+            ["Kritiker argumentieren, dass…","Rapporter un point de vue tiers dans un débat."],
+            ["Im Großen und Ganzen…","Nuancer une conclusion générale."]
+          ],
+          quiz:[{q:"Pour rapporter l'avis de « certains critiques » dans un débat :", opts:["Meiner Meinung nach…","Kritiker argumentieren, dass…","Ich heiße…","Was kostet das?"], a:1}]},
+        hoeren:{text:"Die sozialen Medien haben einen großen Einfluss auf die Gesellschaft. Viele Nachrichten werden heute online verbreitet. Kritiker argumentieren jedoch, dass nicht alle Informationen zuverlässig sind.",
+          questions:[{q:"Worüber spricht der Text?", opts:["Über das Wetter","Über soziale Medien","Über Reisen"], a:1},{q:"Was sagen die Kritiker?", opts:["Alles ist zuverlässig","Nicht alle Informationen sind zuverlässig","Medien sind nutzlos"], a:1}]}
+      },
+      {id:'b2-argumentieren', title:'Argumentieren', sub:'Débattre et convaincre',
+        grammar:{
+          title:"Le Konjunktiv II (irréel/hypothèse)",
+          rule:"Pour les verbes faibles : würde + infinitif. Pour haben/sein/modaux, formes propres : hätte, wäre, könnte. Ex : Wenn ich mehr Zeit hätte, würde ich mehr lesen.",
+          examples:[["Wenn ich mehr Zeit hätte, würde ich mehr lesen.","Si j'avais plus de temps, je lirais plus."],["An deiner Stelle würde ich das nicht sagen.","À ta place, je ne dirais pas ça."],["Das wäre eine gute Idee.","Ce serait une bonne idée."]],
+          quiz:[
+            {q:"Wenn ich reich ___, würde ich reisen.", opts:["bin","wäre","war","sein"], a:1},
+            {q:"An deiner Stelle ___ ich anders reagieren.", opts:["würde","werde","wurde","bin"], a:0},
+            {q:"Das ___ eine gute Lösung sein.", opts:["ist","wäre","war","sein"], a:1}
+          ]},
+        vocab:{items:[["befürworten","être en faveur de"],["ablehnen","rejeter"],["die Gegenposition","la position opposée"],["überzeugen","convaincre"],["das Gegenargument","le contre-argument"]],
+          quiz:[
+            {q:"« befürworten » signifie :", opts:["rejeter","être en faveur de","ignorer","critiquer"], a:1},
+            {q:"« überzeugen » c'est :", opts:["convaincre","refuser","douter","attendre"], a:0}
+          ]},
+        redemittel:{items:[
+            ["Ich verstehe Ihren Standpunkt, aber…","Reconnaître l'avis de l'autre avant de nuancer — essentiel à l'oral B2."],
+            ["Das stimmt zwar, aber…","Concéder un point tout en argumentant."],
+            ["Lassen Sie mich das anders formulieren.","Reformuler pour clarifier son propos en débat."]
+          ],
+          quiz:[{q:"Pour reconnaître l'avis de ton interlocuteur avant de le nuancer, à l'oral :", opts:["Das stimmt zwar, aber…","Ich verstehe Ihren Standpunkt, aber…","Was kostet das?","Ich heiße…"], a:1}]},
+        hoeren:{text:"Ich verstehe Ihren Standpunkt, aber ich sehe das anders. Wenn wir mehr in Bildung investieren würden, hätten wir langfristig weniger Probleme. Das stimmt zwar, aber die Kosten sind hoch.",
+          questions:[{q:"Worüber diskutieren die Sprecher?", opts:["Über Reisen","Über Investitionen in Bildung","Über das Wetter"], a:1},{q:"Was ist das Gegenargument?", opts:["Bildung ist unwichtig","Die Kosten sind hoch","Es gibt keine Probleme"], a:1}]}
+      }
+    ]},
+  {id:'C1', label:'Maîtrise', desc:"Nuances fines, registre soutenu, sujets abstraits — viser la fluidité quasi native.",
+    themes:[
+      {id:'c1-abstrakt', title:'Abstrakte Themen', sub:'Sujets abstraits, registre soutenu',
+        grammar:{
+          title:"La nominalisation (verbe → nom)",
+          rule:"Le style formel allemand transforme souvent un verbe en nom pour alléger la phrase : entscheiden → die Entscheidung. Très fréquent à l'écrit C1.",
+          examples:[["Die Entscheidung fiel schwer.","La décision a été difficile à prendre. (de entscheiden)"],["Die Entwicklung der Technologie ist rasant.","Le développement de la technologie est rapide. (de entwickeln)"],["Nach langem Überlegen…","Après mûre réflexion… (de überlegen)"]],
+          quiz:[
+            {q:"Le nom formé à partir de « entwickeln » est :", opts:["die Entwicklung","der Entwickler","das Entwickeln","die Entwickelung"], a:0},
+            {q:"Le nom formé à partir de « entscheiden » est :", opts:["die Entscheid","die Entscheidung","der Entschieden","das Entscheiden"], a:1}
+          ]},
+        vocab:{items:[["die Herausforderung","le défi"],["die Perspektive","la perspective"],["die Komplexität","la complexité"],["differenzieren","différencier, nuancer"],["die Tendenz","la tendance"]],
+          quiz:[
+            {q:"« die Herausforderung » signifie :", opts:["la solution","le défi","la perspective","la tendance"], a:1},
+            {q:"« differenzieren » veut dire :", opts:["simplifier","nuancer","ignorer","résumer"], a:1}
+          ]},
+        redemittel:{items:[
+            ["Es ist unbestreitbar, dass…","Affirmer un fait avec force, registre C1."],
+            ["Dies wirft die Frage auf, ob…","Ouvrir une problématique à l'écrit soutenu."],
+            ["Vor diesem Hintergrund…","Introduire une analyse contextualisée."]
+          ],
+          quiz:[{q:"Pour ouvrir une problématique dans un essai soutenu :", opts:["Was kostet das?","Dies wirft die Frage auf, ob…","Ich heiße…","Tschüss."], a:1}]},
+        hoeren:{text:"Vor diesem Hintergrund lässt sich die Komplexität des Themas kaum leugnen. Dies wirft die Frage auf, ob unsere bisherige Perspektive überhaupt ausreicht.",
+          questions:[{q:"Welches Register hat dieser Text?", opts:["Sehr informell","Formell und abstrakt","Umgangssprachlich"], a:1},{q:"Was wird hier hinterfragt?", opts:["Ein Rezept","Die bisherige Perspektive","Ein Zugticket"], a:1}]}
+      },
+      {id:'c1-wissenschaft', title:'Wissenschaft & Technik', sub:'Science, technologie, éthique',
+        grammar:{
+          title:"Les constructions participiales",
+          rule:"Un participe présent (Partizip I) placé avant le nom fonctionne comme un adjectif étendu, très fréquent dans les textes C1 : die immer weiter fortschreitende Digitalisierung (la numérisation qui progresse sans cesse).",
+          examples:[["die rasant wachsende Technologie","la technologie qui croît rapidement"],["ein gut durchdachtes Konzept","un concept bien pensé"],["die zunehmend digitalisierte Arbeitswelt","le monde du travail de plus en plus digitalisé"]],
+          quiz:[
+            {q:"« die … fortschreitende Digitalisierung » utilise :", opts:["un infinitif","un Partizip I comme adjectif","un Konjunktiv","un passif"], a:1},
+            {q:"Un Partizip I se forme généralement avec :", opts:["-t à la fin du verbe","-end ajouté à l'infinitif","ge- devant le verbe","würde + infinitif"], a:1}
+          ]},
+        vocab:{items:[["die Entwicklung","le développement"],["die Innovation","l'innovation"],["nachhaltig","durable"],["die Auswirkung","la répercussion"],["ethisch","éthique"]],
+          quiz:[
+            {q:"« nachhaltig » signifie :", opts:["rapide","durable","dangereux","coûteux"], a:1},
+            {q:"« die Auswirkung » c'est :", opts:["la répercussion","l'innovation","le défi","la solution"], a:0}
+          ]},
+        redemittel:{items:[
+            ["Nicht zu unterschätzen ist…","Souligner l'importance d'un facteur, registre soutenu."],
+            ["Im Hinblick auf…","Introduire une perspective précise sur un sujet."],
+            ["Dies lässt sich damit erklären, dass…","Justifier une affirmation de façon nuancée."]
+          ],
+          quiz:[{q:"Pour souligner qu'un facteur ne doit pas être sous-estimé :", opts:["Nicht zu unterschätzen ist…","Was kostet das?","Ich bin müde.","Tschüss!"], a:0}]},
+        hoeren:{text:"Im Hinblick auf die rasant wachsende Technologie stellt sich die ethische Frage der Verantwortung. Nicht zu unterschätzen ist die Auswirkung auf zukünftige Generationen.",
+          questions:[{q:"Welche Frage wird gestellt?", opts:["Eine wirtschaftliche Frage","Eine ethische Frage","Eine geografische Frage"], a:1},{q:"Worauf bezieht sich die Auswirkung?", opts:["Auf die Vergangenheit","Auf zukünftige Generationen","Auf das Wetter"], a:1}]}
+      }
+    ]}
+];
+
+/* Placement test: 12 questions, increasing difficulty across levels */
+const PLACEMENT = [
+  {q:"Ich ___ Sarah.", opts:["bin","bist","ist","sind"], a:0, lvl:0},
+  {q:"Wie ___ du?", opts:["heißt","heißen","heiße","heißt du"], a:0, lvl:0},
+  {q:"Das ist ___ Vater. (moi)", opts:["mein","meine","meinen","meins"], a:0, lvl:0},
+  {q:"Ich ___ nach Berlin fahren. (vouloir)", opts:["will","wollt","wollen","willst"], a:0, lvl:1},
+  {q:"Was ___ das Ticket?", opts:["kostet","kosten","kostest","gekostet"], a:0, lvl:1},
+  {q:"Wir ___ um 8 Uhr abfahren müssen.", opts:["müssen","muss","musst","müsst"], a:0, lvl:1},
+  {q:"Ich bin müde, ___ ich viel gearbeitet habe.", opts:["weil","dass","obwohl","und"], a:0, lvl:2},
+  {q:"Meiner ___ nach ist das eine gute Idee.", opts:["Meinung","Ansicht","Gedanke","Idee"], a:0, lvl:2},
+  {q:"Es regnet, ___ bleibe ich zu Hause.", opts:["deshalb","weil","dass","obwohl"], a:0, lvl:2},
+  {q:"Die Entscheidung ___ gestern getroffen.", opts:["wurde","wird","ist","war"], a:0, lvl:3},
+  {q:"Wenn ich Zeit ___, würde ich mehr lesen.", opts:["hätte","habe","hatte","haben"], a:0, lvl:3},
+  {q:"Dies wirft die Frage ___, ob…", opts:["auf","an","aus","vor"], a:0, lvl:4}
+];
+
+const LEVEL_LABELS = {A1:'A1', A2:'A2', B1:'B1', B2:'B2', C1:'C1'};
+const BADGES_CATALOG = [
+  {id:'first', ic:'🌱', name:'Erste Schritte', desc:"Premier exercice terminé"},
+  {id:'grammar5', ic:'📐', name:'Grammatik-Profi', desc:"5 quiz de grammaire réussis"},
+  {id:'vocab10', ic:'🗂️', name:'Wortschatz-Sammler', desc:"10 quiz de vocabulaire réussis"},
+  {id:'hoeren5', ic:'🎧', name:'Hörprofi', desc:"5 exercices d'écoute terminés"},
+  {id:'themedone', ic:'⭐', name:'Thema gemeistert', desc:"Un thème complet à 100%"},
+  {id:'leveldone', ic:'🏆', name:'Level-Champion', desc:"Un niveau entier terminé"},
+  {id:'streak7', ic:'🔥', name:'7-Tage-Serie', desc:"7 jours de suite actif(ve)"}
+];
+
+/* ================= STATE ================= */
+let state = loadState();
+function defaultState(){
+  return {xp:0, streak:0, lastDate:null, badges:[], progress:{}, placementDone:false, recommendedLevel:null};
+}
+function loadState(){
+  try{
+    const raw = localStorage.getItem('sprachpfad_state_v1');
+    if(!raw) return defaultState();
+    return Object.assign(defaultState(), JSON.parse(raw));
+  }catch(e){ return defaultState(); }
+}
+function saveState(){
+  try{ localStorage.setItem('sprachpfad_state_v1', JSON.stringify(state)); }catch(e){}
+}
+function touchStreak(){
+  const today = new Date().toDateString();
+  if(state.lastDate === today) return;
+  const y = new Date(); y.setDate(y.getDate()-1);
+  if(state.lastDate === y.toDateString()){ state.streak += 1; } else { state.streak = 1; }
+  state.lastDate = today;
+  if(state.streak >= 7) awardBadge('streak7');
+  saveState();
+}
+function markProgress(levelId, themeId, skill){
+  state.progress[levelId] = state.progress[levelId] || {};
+  state.progress[levelId][themeId] = state.progress[levelId][themeId] || {};
+  state.progress[levelId][themeId][skill] = true;
+  saveState();
+}
+function isDone(levelId, themeId, skill){
+  return !!(state.progress[levelId] && state.progress[levelId][themeId] && state.progress[levelId][themeId][skill]);
+}
+function themeProgressCount(levelId, themeId){
+  const skills=['grammar','vocab','redemittel','hoeren'];
+  return skills.filter(s=>isDone(levelId,themeId,s)).length;
+}
+function levelProgressPct(level){
+  let total=0, done=0;
+  level.themes.forEach(t=>{ total+=4; done+=themeProgressCount(level.id,t.id); });
+  return total? Math.round(done/total*100):0;
+}
+function awardBadge(id){
+  if(state.badges.includes(id)) return;
+  state.badges.push(id);
+  saveState();
+  const b = BADGES_CATALOG.find(x=>x.id===id);
+  if(b) showToast(b.ic+' Badge freigeschaltet: '+b.name);
+}
+function addXP(n){
+  state.xp += n; saveState(); updateHeaderStats();
+}
+function checkGlobalBadges(){
+  let gCount=0, vCount=0, hCount=0;
+  Object.keys(state.progress).forEach(lvl=>{
+    Object.keys(state.progress[lvl]).forEach(th=>{
+      if(state.progress[lvl][th].grammar) gCount++;
+      if(state.progress[lvl][th].vocab) vCount++;
+      if(state.progress[lvl][th].hoeren) hCount++;
+    });
+  });
+  if(gCount+vCount+hCount>=1) awardBadge('first');
+  if(gCount>=5) awardBadge('grammar5');
+  if(vCount>=10) awardBadge('vocab10');
+  if(hCount>=5) awardBadge('hoeren5');
+}
+
+/* ================= NAVIGATION ================= */
+function switchView(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0, behavior:'instant'});
+}
+function goHero(){ renderHeroPath(); switchView('view-hero'); }
+function showLevelMap(){ renderLevelMap(); switchView('view-map'); }
+function showProfile(){ renderBadges(); switchView('view-profile'); }
+
+/* ================= HERO ================= */
+function renderHeroPath(){
+  const el = document.getElementById('hero-path-preview');
+  el.innerHTML = LEVELS.map((lvl,i)=>{
+    const pct = levelProgressPct(lvl);
+    const filled = pct>0 || (state.recommendedLevel===lvl.id);
+    return `<div class="step ${filled?'filled':''}"><div class="bar"></div><div class="dot"></div><div class="lbl">${lvl.id}</div></div>`;
+  }).join('');
+}
+
+/* ================= PLACEMENT TEST ================= */
+let testIdx=0, testScore=0;
+function startPlacement(){
+  testIdx=0; testScore=0;
+  switchView('view-test');
+  renderTestQ();
+}
+function renderTestQ(){
+  const item = PLACEMENT[testIdx];
+  document.getElementById('test-q-label').textContent = `Question ${testIdx+1}/${PLACEMENT.length}`;
+  document.getElementById('test-progress-fill').style.width = Math.round((testIdx)/PLACEMENT.length*100)+'%';
+  document.getElementById('test-q-text').textContent = item.q;
+  const optsEl = document.getElementById('test-opts');
+  optsEl.innerHTML = item.opts.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('');
+  optsEl.querySelectorAll('.opt').forEach(btn=>{
+    btn.onclick = ()=>{
+      const i = parseInt(btn.dataset.i);
+      optsEl.querySelectorAll('.opt').forEach(b=>b.style.pointerEvents='none');
+      if(i===item.a){ btn.classList.add('correct'); testScore += (item.lvl+1); }
+      else { btn.classList.add('incorrect'); optsEl.children[item.a].classList.add('correct'); }
+      setTimeout(()=>{
+        testIdx++;
+        if(testIdx < PLACEMENT.length) renderTestQ();
+        else finishPlacement();
+      }, 650);
+    };
+  });
+}
+function finishPlacement(){
+  document.getElementById('test-progress-fill').style.width='100%';
+  const maxScore = PLACEMENT.reduce((s,q)=>s+(q.lvl+1),0);
+  const ratio = testScore/maxScore;
+  let recIdx = Math.floor(ratio*5);
+  if(recIdx>4) recIdx=4;
+  if(recIdx<0) recIdx=0;
+  state.placementDone = true;
+  state.recommendedLevel = LEVELS[recIdx].id;
+  saveState();
+  showToast('Niveau recommandé : '+LEVELS[recIdx].id);
+  showLevelMap();
+}
+
+/* ================= LEVEL MAP ================= */
+function renderLevelMap(){
+  const el = document.getElementById('level-path');
+  el.innerHTML = LEVELS.map((lvl,i)=>{
+    const pct = levelProgressPct(lvl);
+    const unlocked = i===0 || levelProgressPct(LEVELS[i-1])>0 || state.recommendedLevel===lvl.id || pct>0;
+    const mastered = pct===100;
+    const nodeClass = mastered? 'mastered' : (unlocked? 'unlocked':'');
+    const cardClass = unlocked? '' : 'locked';
+    const rec = state.recommendedLevel===lvl.id ? ' · recommandé pour toi' : '';
+    return `
+    <div class="level-row">
+      <div class="connector"></div>
+      <div class="level-node ${nodeClass}">${mastered?'✓':lvl.id}</div>
+      <div class="level-card ${cardClass}" ${unlocked?`onclick="openDashboard('${lvl.id}')"`:''}>
+        <div>
+          <div class="level-card-title">${lvl.id} — ${lvl.label}</div>
+          <div class="level-card-sub">${lvl.desc}${rec}</div>
+        </div>
+        ${ringSVG(pct)}
+      </div>
+    </div>`;
+  }).join('');
+}
+function ringSVG(pct){
+  const r=22, c=2*Math.PI*r;
+  const offset = c - (pct/100)*c;
+  return `<svg class="ring level-progress-mini" viewBox="0 0 56 56">
+    <circle class="ring-bg" cx="28" cy="28" r="${r}"></circle>
+    <circle class="ring-fg" cx="28" cy="28" r="${r}" stroke-dasharray="${c}" stroke-dashoffset="${offset}" transform="rotate(-90 28 28)"></circle>
+    <text x="28" y="32" text-anchor="middle" font-size="12" font-family="IBM Plex Sans" fill="var(--ink)">${pct}%</text>
+  </svg>`;
+}
+
+/* ================= DASHBOARD ================= */
+let currentLevel=null;
+function openDashboard(levelId){
+  currentLevel = LEVELS.find(l=>l.id===levelId);
+  document.getElementById('dash-level-title').textContent = currentLevel.label;
+  document.getElementById('dash-level-tag').textContent = currentLevel.id;
+  document.getElementById('dash-level-desc').textContent = currentLevel.desc;
+  const grid = document.getElementById('theme-grid');
+  grid.innerHTML = currentLevel.themes.map(t=>{
+    const n = themeProgressCount(currentLevel.id, t.id);
+    const pips = [0,1,2,3].map(i=>`<span class="pip ${i<n?'done':''}"></span>`).join('');
+    return `<div class="theme-card" onclick="openTheme('${currentLevel.id}','${t.id}')">
+      <h3>${t.title}</h3>
+      <p>${t.sub}</p>
+      <div class="pill-row">${pips}</div>
+      <div class="skill-labels"><span>Grammatik</span><span>Wortschatz</span><span>Redemittel</span><span>Hören</span></div>
+    </div>`;
+  }).join('');
+  touchStreak();
+  switchView('view-dashboard');
+}
+
+/* ================= THEME / SKILL VIEW ================= */
+let currentTheme=null, currentSpeechText=null;
+function openTheme(levelId, themeId){
+  currentLevel = LEVELS.find(l=>l.id===levelId);
+  currentTheme = currentLevel.themes.find(t=>t.id===themeId);
+  document.getElementById('skill-title').textContent = currentTheme.title;
+  document.getElementById('skill-back').onclick = ()=>openDashboard(levelId);
+  document.getElementById('skill-tabs').innerHTML = `
+    <button class="tab-btn active" data-tab="grammar">Grammatik</button>
+    <button class="tab-btn" data-tab="vocab">Wortschatz</button>
+    <button class="tab-btn" data-tab="redemittel">Redemittel</button>
+    <button class="tab-btn" data-tab="hoeren">Hören</button>`;
+  document.querySelectorAll('#skill-tabs .tab-btn').forEach(b=>{
+    b.onclick = ()=>selectTab(b.dataset.tab);
+  });
+  renderGrammar(); renderVocab(); renderRedemittel(); renderHoeren();
+  selectTab('grammar');
+  switchView('view-skill');
+}
+function selectTab(tab){
+  document.querySelectorAll('#skill-tabs .tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+tab).classList.add('active');
+}
+
+function renderGrammar(){
+  const g = currentTheme.grammar;
+  const el = document.getElementById('panel-grammar');
+  el.innerHTML = `
+    <div class="lesson-block">
+      <h4>Règle</h4>
+      <div class="explain-box">
+        <div class="rule"><strong>${g.title}.</strong> ${g.rule}</div>
+        ${g.examples.map(([de,fr])=>`<div class="example-line"><span class="example-de">${de}</span><span class="example-fr">— ${fr}</span></div>`).join('')}
+      </div>
+    </div>
+    <div id="grammar-exercise"></div>`;
+  renderExercise('grammar-exercise', g.quiz.map(q=>({q:q.q, opts:q.opts, a:q.a})), 'grammar');
+}
+
+function renderVocab(){
+  const v = currentTheme.vocab;
+  const el = document.getElementById('panel-vocab');
+  el.innerHTML = `
+    <div class="lesson-block">
+      <h4>Vocabulaire — clique pour retourner</h4>
+      <div class="flash-grid">${v.items.map(([de,fr],i)=>`
+        <div class="flashcard" onclick="this.classList.toggle('flipped')">
+          <div class="flashcard-inner">
+            <div class="flash-face flash-front">${de}</div>
+            <div class="flash-face flash-back">${fr}</div>
+          </div>
+        </div>`).join('')}</div>
+    </div>
+    <div id="vocab-exercise"></div>`;
+  renderExercise('vocab-exercise', v.quiz.map(q=>({q:q.q, opts:q.opts, a:q.a})), 'vocab');
+}
+
+function renderRedemittel(){
+  const r = currentTheme.redemittel;
+  const el = document.getElementById('panel-redemittel');
+  el.innerHTML = `
+    <div class="lesson-block">
+      <h4>Expressions clés — Schreiben & Sprechen</h4>
+      <div class="redemittel-list">${r.items.map(([p,u])=>`
+        <div class="rm-card"><div class="rm-phrase">${p}</div><div class="rm-use">${u}</div></div>`).join('')}</div>
+    </div>
+    <div id="redemittel-exercise"></div>`;
+  renderExercise('redemittel-exercise', r.quiz.map(q=>({q:q.q, opts:q.opts, a:q.a})), 'redemittel');
+}
+
+function renderHoeren(){
+  const h = currentTheme.hoeren;
+  currentSpeechText = h.text;
+  const el = document.getElementById('panel-hoeren');
+  el.innerHTML = `
+    <div class="hoeren-player">
+      <button class="play-btn" id="play-audio-btn" onclick="playAudio()">▶ Écouter le dialogue</button>
+      <button class="link-btn" onclick="document.getElementById('transcript-box').classList.toggle('shown')">Afficher / masquer la transcription</button>
+      <div class="hoeren-transcript" id="transcript-box">${h.text}</div>
+    </div>
+    <div id="hoeren-exercise"></div>`;
+  renderExercise('hoeren-exercise', h.questions.map(q=>({q:q.q, opts:q.opts, a:q.a})), 'hoeren');
+}
+function playAudio(){
+  const btn = document.getElementById('play-audio-btn');
+  if(!('speechSynthesis' in window)){
+    btn.textContent = 'Audio non disponible dans ce navigateur';
+    btn.disabled = true;
+    return;
+  }
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(currentSpeechText);
+  utter.lang = 'de-DE';
+  utter.rate = 0.88;
+  btn.disabled = true;
+  btn.textContent = '🔊 Lecture en cours…';
+  utter.onend = ()=>{ btn.disabled=false; btn.textContent='▶ Écouter le dialogue'; };
+  utter.onerror = ()=>{ btn.disabled=false; btn.textContent='▶ Écouter le dialogue'; };
+  window.speechSynthesis.speak(utter);
+}
+
+/* Generic exercise renderer */
+function renderExercise(containerId, questions, skillKey){
+  const el = document.getElementById(containerId);
+  const box = document.createElement('div');
+  box.className = 'exercise-box';
+  box.innerHTML = `<h4>Exercice</h4><div id="${containerId}-qs"></div>`;
+  el.appendChild(box);
+  const qsEl = box.querySelector(`#${containerId}-qs`);
+  let answered = new Array(questions.length).fill(false);
+  let correctCount = 0;
+  questions.forEach((q,qi)=>{
+    const qBlock = document.createElement('div');
+    qBlock.className='q-block';
+    qBlock.innerHTML = `<div class="q-text">${qi+1}. ${q.q}</div>
+      <div class="opt-list">${q.opts.map((o,oi)=>`<button class="opt" data-oi="${oi}">${o}</button>`).join('')}</div>
+      <div class="q-feedback" style="display:none;"></div>`;
+    qsEl.appendChild(qBlock);
+    qBlock.querySelectorAll('.opt').forEach(btn=>{
+      btn.onclick = ()=>{
+        if(answered[qi]) return;
+        answered[qi]=true;
+        const oi = parseInt(btn.dataset.oi);
+        const fb = qBlock.querySelector('.q-feedback');
+        qBlock.querySelectorAll('.opt').forEach(b=>b.style.pointerEvents='none');
+        if(oi===q.a){
+          btn.classList.add('correct'); correctCount++;
+          fb.textContent='Richtig !'; fb.className='q-feedback ok'; fb.style.display='block';
+        }else{
+          btn.classList.add('incorrect');
+          qBlock.querySelectorAll('.opt')[q.a].classList.add('correct');
+          fb.textContent='Presque — la bonne réponse est surlignée.'; fb.className='q-feedback bad'; fb.style.display='block';
+        }
+        if(answered.every(Boolean)){
+          finishExercise(box, correctCount, questions.length, skillKey);
+        }
+      };
+    });
+  });
+}
+function finishExercise(box, correct, total, skillKey){
+  markProgress(currentLevel.id, currentTheme.id, skillKey);
+  const xpGain = correct*10;
+  addXP(xpGain);
+  checkGlobalBadges();
+  if(themeProgressCount(currentLevel.id, currentTheme.id)===4){
+    awardBadge('themedone');
+  }
+  if(levelProgressPct(currentLevel)===100){
+    awardBadge('leveldone');
+  }
+  const result = document.createElement('div');
+  result.className='exercise-result';
+  result.innerHTML = `<div class="score">${correct}/${total}</div><p>+${xpGain} XP gagnés</p>`;
+  box.appendChild(result);
+  showToast(`+${xpGain} XP`);
+}
+
+/* ================= BADGES ================= */
+function renderBadges(){
+  const el = document.getElementById('badge-shelf');
+  el.innerHTML = BADGES_CATALOG.map(b=>{
+    const earned = state.badges.includes(b.id);
+    return `<div class="badge-chip" style="opacity:${earned?1:.4}"><span class="ic">${b.ic}</span>${b.name}</div>`;
+  }).join('');
+}
+
+/* ================= HEADER / THEME ================= */
+function updateHeaderStats(){
+  document.querySelector('#stat-streak b').textContent = state.streak;
+  document.querySelector('#stat-xp b').textContent = state.xp;
+}
+function toggleTheme(){
+  const root = document.documentElement;
+  const cur = root.getAttribute('data-theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  let next;
+  if(!cur) next = prefersDark ? 'light':'dark';
+  else next = cur==='dark' ? 'light':'dark';
+  root.setAttribute('data-theme', next);
+  document.getElementById('theme-toggle').textContent = next==='dark' ? '☀':'☾';
+  try{ localStorage.setItem('sprachpfad_theme', next); }catch(e){}
+}
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(()=>t.classList.remove('show'), 2400);
+}
+
+/* ================= BOOTSTRAP ================= */
+(function init(){
+  try{
+    const savedTheme = localStorage.getItem('sprachpfad_theme');
+    if(savedTheme){ document.documentElement.setAttribute('data-theme', savedTheme); document.getElementById('theme-toggle').textContent = savedTheme==='dark'?'☀':'☾'; }
+  }catch(e){}
+  updateHeaderStats();
+  renderHeroPath();
+  // add profile access via long-press on brand? simplest: add a link in header stats
+  const statsEl = document.querySelector('.header-stats');
+  const profBtn = document.createElement('button');
+  profBtn.className='stat-pill'; profBtn.style.cursor='pointer'; profBtn.innerHTML='🏅';
+  profBtn.onclick = showProfile;
+  statsEl.insertBefore(profBtn, document.getElementById('theme-toggle'));
+})();
+</script>
+</body>
+</html>
