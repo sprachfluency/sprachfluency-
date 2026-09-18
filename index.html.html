@@ -1,0 +1,1860 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprachfluency — Ton chemin vers l'allemand fluide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============ DESIGN TOKENS ============ */
+:root{
+  --paper:#F6F3EC;
+  --paper-alt:#EEE9DD;
+  --card-bg:#FFFFFF;
+  --ink:#211F1B;
+  --ink-soft:#5C584E;
+  --ink-faint:#8B8577;
+  --gold:#AD8226;
+  --gold-soft:#E8D6A8;
+  --red:#C41E2F;
+  --red-soft:#F5D6D9;
+  --brick:#A23A28;
+  --brick-soft:#F1DAD2;
+  --line:#DED7C6;
+  --radius-s:6px;
+  --radius-m:12px;
+  --radius-l:22px;
+  --shadow-card:0 1px 2px rgba(33,31,27,.06), 0 6px 20px rgba(33,31,27,.05);
+  --font-head:'Space Grotesk', sans-serif;
+  --font-body:'IBM Plex Sans', sans-serif;
+}
+:root:not([data-theme="light"]) {
+  @media (prefers-color-scheme: dark){
+    --paper:#17181A; --paper-alt:#1D1F1F; --card-bg:#212423; --ink:#EDE9DE;
+    --ink-soft:#B2AC9C; --ink-faint:#7C7869; --gold:#D6A94A; --gold-soft:#3B3220;
+    --red:#E2495C; --red-soft:#3B1E22; --brick:#DA7357; --brick-soft:#3A241D;
+    --line:#37372F; --shadow-card:0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#17181A; --paper-alt:#1D1F1F; --card-bg:#212423; --ink:#EDE9DE;
+  --ink-soft:#B2AC9C; --ink-faint:#7C7869; --gold:#D6A94A; --gold-soft:#3B3220;
+  --red:#E2495C; --red-soft:#3B1E22; --brick:#DA7357; --brick-soft:#3A241D;
+  --line:#37372F; --shadow-card:0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--paper); color:var(--ink); font-family:var(--font-body);
+  font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+h1,h2,h3,h4{font-family:var(--font-head); margin:0; letter-spacing:-0.01em; font-weight:600;}
+p{margin:0;}
+button{font-family:var(--font-body); cursor:pointer;}
+a{color:inherit;}
+.wrap{max-width:920px; margin:0 auto; padding:0 20px;}
+::selection{background:var(--gold-soft);}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms !important; transition-duration:.01ms !important;}}
+:focus-visible{outline:2px solid var(--red); outline-offset:3px; border-radius:4px;}
+
+/* ============ HEADER ============ */
+header.app-header{
+  position:sticky; top:0; z-index:40; background:var(--paper);
+  border-bottom:1px solid var(--line); backdrop-filter:blur(6px);
+}
+.header-row{display:flex; align-items:center; justify-content:space-between; padding:14px 20px; max-width:920px; margin:0 auto; gap:16px;}
+.brand{display:flex; align-items:center; gap:9px; cursor:pointer; background:none; border:none; padding:0;}
+.brand-mark{width:30px; height:30px; border-radius:8px; background:var(--red); color:#fff; display:flex; align-items:center; justify-content:center; font-family:var(--font-head); font-weight:700; font-size:14px; flex-shrink:0;}
+.brand-name{font-family:var(--font-head); font-weight:700; font-size:17px; color:var(--ink);}
+.header-stats{display:flex; align-items:center; gap:10px;}
+.stat-pill{display:flex; align-items:center; gap:5px; background:var(--card-bg); border:1px solid var(--line); border-radius:99px; padding:6px 12px; font-size:13px; font-weight:500; color:var(--ink-soft); white-space:nowrap;}
+.stat-pill b{color:var(--ink); font-weight:600;}
+.theme-toggle{width:34px; height:34px; border-radius:99px; border:1px solid var(--line); background:var(--card-bg); display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0;}
+
+/* ============ MAIN VIEWS ============ */
+main{min-height:calc(100vh - 64px); padding-bottom:60px;}
+.view{display:none; animation:fadein .35s ease;}
+.view.active{display:block;}
+@keyframes fadein{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
+
+/* ---- HERO ---- */
+.hero{padding:56px 20px 40px;}
+.hero-inner{max-width:640px; margin:0 auto; text-align:left;}
+.hero-eyebrow-wordmark{font-family:var(--font-head); font-size:14px; color:var(--red); font-weight:600; margin-bottom:14px;}
+.hero h1{font-size:44px; line-height:1.08; margin-bottom:18px;}
+.hero h1 .accent{color:var(--gold);}
+.hero p.lead{font-size:17px; color:var(--ink-soft); max-width:52ch; margin-bottom:30px;}
+.hero-actions{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:44px;}
+.btn{border-radius:var(--radius-s); padding:13px 22px; font-size:15px; font-weight:600; border:1px solid transparent; transition:transform .15s ease, box-shadow .15s ease;}
+.btn:active{transform:scale(.98);}
+.btn-primary{background:var(--red); color:#fff;}
+.btn-primary:hover{box-shadow:0 4px 14px rgba(44,91,76,.28);}
+.btn-secondary{background:var(--card-bg); color:var(--ink); border-color:var(--line);}
+.btn-secondary:hover{border-color:var(--ink-faint);}
+.btn-ghost{background:none; border:none; color:var(--red); font-weight:600; padding:8px 4px;}
+.hero-path{display:flex; align-items:flex-end; gap:0; margin-top:8px;}
+.hero-path .step{flex:1; text-align:center; position:relative;}
+.hero-path .step .dot{width:14px; height:14px; border-radius:50%; background:var(--line); margin:0 auto 8px; border:3px solid var(--paper); box-shadow:0 0 0 1px var(--line);}
+.hero-path .step.filled .dot{background:var(--gold); box-shadow:0 0 0 1px var(--gold);}
+.hero-path .step .lbl{font-family:var(--font-head); font-size:13px; color:var(--ink-faint); font-weight:600;}
+.hero-path .step.filled .lbl{color:var(--ink);}
+.hero-path .bar{position:absolute; top:6px; left:-50%; width:100%; height:2px; background:var(--line); z-index:-1;}
+.hero-path .step.filled .bar{background:var(--gold);}
+.hero-path .step:first-child .bar{display:none;}
+
+/* ---- PLACEMENT TEST ---- */
+.test-shell{max-width:600px; margin:0 auto; padding:40px 20px;}
+.test-progress{height:5px; background:var(--line); border-radius:99px; overflow:hidden; margin-bottom:28px;}
+.test-progress-fill{height:100%; background:var(--gold); transition:width .3s ease;}
+.test-q-label{font-size:13px; font-weight:600; color:var(--red); margin-bottom:10px; font-family:var(--font-head);}
+.test-q{font-size:22px; margin-bottom:22px;}
+.opt-list{display:flex; flex-direction:column; gap:10px;}
+.opt{display:block; width:100%; text-align:left; padding:14px 16px; border-radius:var(--radius-m); border:1px solid var(--line); background:var(--card-bg); font-size:15px; color:var(--ink); transition:border-color .15s ease, background .15s ease;}
+.opt:hover{border-color:var(--red);}
+.opt.selected{border-color:var(--gold); background:var(--gold-soft);}
+.opt.correct{border-color:var(--gold); background:var(--gold-soft);}
+.opt.incorrect{border-color:var(--brick); background:var(--brick-soft);}
+.test-nav{display:flex; justify-content:flex-end; margin-top:26px;}
+
+/* ---- LEVEL MAP ---- */
+.section-head{padding:36px 20px 20px;}
+.section-head h2{font-size:28px;}
+.section-head p{color:var(--ink-soft); margin-top:6px; font-size:15px;}
+.level-path{max-width:640px; margin:0 auto; padding:10px 20px 40px; display:flex; flex-direction:column; gap:0;}
+.level-row{display:flex; align-items:center; gap:18px; position:relative; padding:14px 0;}
+.level-row .connector{position:absolute; left:23px; top:-6px; width:2px; height:20px; background:var(--line);}
+.level-row:first-child .connector{display:none;}
+.level-node{width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--font-head); font-weight:700; font-size:16px; flex-shrink:0; border:2px solid var(--line); background:var(--card-bg); color:var(--ink-faint);}
+.level-node.unlocked{border-color:var(--red); color:var(--red);}
+.level-node.mastered{background:var(--gold); border-color:var(--gold); color:var(--ink);}
+.level-card{flex:1; background:var(--card-bg); border:1px solid var(--line); border-radius:var(--radius-m); padding:16px 18px; display:flex; align-items:center; justify-content:space-between; gap:12px; box-shadow:var(--shadow-card); cursor:pointer; transition:border-color .15s ease;}
+.level-card:hover{border-color:var(--red);}
+.level-card.locked{opacity:.5; cursor:not-allowed;}
+.level-card-title{font-family:var(--font-head); font-weight:600; font-size:17px;}
+.level-card-sub{font-size:13px; color:var(--ink-soft); margin-top:2px;}
+.level-progress-mini{width:56px; height:56px; flex-shrink:0;}
+
+/* ---- DASHBOARD ---- */
+.dash-header{padding:30px 20px 10px; max-width:920px; margin:0 auto;}
+.back-link{display:inline-flex; align-items:center; gap:6px; font-size:14px; color:var(--ink-soft); font-weight:500; margin-bottom:16px; background:none; border:none; padding:0;}
+.back-link:hover{color:var(--ink);}
+.dash-title-row{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;}
+.dash-title-row h2{font-size:30px;}
+.level-badge-tag{font-size:13px; font-weight:600; color:var(--red); background:var(--red-soft); padding:4px 10px; border-radius:99px; font-family:var(--font-head);}
+.theme-grid{max-width:920px; margin:0 auto; padding:20px 20px 40px; display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+@media(max-width:640px){.theme-grid{grid-template-columns:1fr;}}
+.theme-card{background:var(--card-bg); border:1px solid var(--line); border-radius:var(--radius-l); padding:22px; box-shadow:var(--shadow-card); cursor:pointer; transition:transform .15s ease, border-color .15s ease;}
+.theme-card:hover{border-color:var(--red); transform:translateY(-2px);}
+.theme-card h3{font-size:19px; margin-bottom:6px;}
+.theme-card p{font-size:14px; color:var(--ink-soft); margin-bottom:16px;}
+.pill-row{display:flex; gap:6px; flex-wrap:wrap;}
+.pip{width:9px; height:9px; border-radius:50%; background:var(--line);}
+.pip.done{background:var(--gold);}
+.skill-labels{display:flex; gap:12px; margin-top:10px; font-size:11px; color:var(--ink-faint); font-family:var(--font-head); font-weight:600;}
+
+/* ---- THEME / SKILL VIEW ---- */
+.skill-header{max-width:760px; margin:0 auto; padding:28px 20px 0;}
+.tabs{display:flex; gap:4px; max-width:760px; margin:20px auto 0; padding:0 20px; border-bottom:1px solid var(--line);}
+.tab-btn{background:none; border:none; padding:12px 16px; font-size:14px; font-weight:600; color:var(--ink-faint); border-bottom:2px solid transparent; margin-bottom:-1px; font-family:var(--font-head);}
+.tab-btn.active{color:var(--ink); border-color:var(--gold);}
+.tab-panel{max-width:760px; margin:0 auto; padding:28px 20px 60px; display:none;}
+.tab-panel.active{display:block;}
+
+.lesson-block{margin-bottom:24px;}
+.lesson-block h4{font-size:15px; color:var(--red); font-family:var(--font-head); margin-bottom:10px;}
+.explain-box{background:var(--card-bg); border:1px solid var(--line); border-radius:var(--radius-m); padding:20px; font-size:15.5px; line-height:1.65;}
+.explain-box .rule{margin-bottom:14px;}
+.example-line{display:flex; gap:10px; align-items:baseline; padding:8px 0; border-top:1px solid var(--line); font-size:14.5px;}
+.example-line:first-of-type{border-top:none;}
+.example-de{font-weight:600; color:var(--ink);}
+.example-fr{color:var(--ink-soft); font-size:13.5px;}
+
+.flash-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; margin-bottom:20px;}
+.flashcard{aspect-ratio:1.1/1; perspective:800px; cursor:pointer;}
+.flashcard-inner{position:relative; width:100%; height:100%; transition:transform .5s; transform-style:preserve-3d;}
+.flashcard.flipped .flashcard-inner{transform:rotateY(180deg);}
+.flash-face{position:absolute; inset:0; backface-visibility:hidden; border-radius:var(--radius-m); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; text-align:center; padding:12px; font-weight:600; font-size:15px;}
+.flash-front{background:var(--card-bg); color:var(--ink);}
+.flash-back{background:var(--gold-soft); color:var(--ink); transform:rotateY(180deg); font-size:14px;}
+
+.redemittel-list{display:flex; flex-direction:column; gap:10px; margin-bottom:20px;}
+.rm-card{background:var(--card-bg); border:1px solid var(--line); border-left:3px solid var(--gold); border-radius:var(--radius-s); padding:14px 16px;}
+.rm-phrase{font-weight:600; font-size:15.5px;}
+.rm-use{font-size:13px; color:var(--ink-soft); margin-top:4px;}
+
+.hoeren-player{background:var(--card-bg); border:1px solid var(--line); border-radius:var(--radius-m); padding:22px; margin-bottom:20px;}
+.play-btn{display:flex; align-items:center; gap:10px; background:var(--red); color:#fff; border:none; border-radius:99px; padding:12px 20px; font-weight:600; font-size:14px;}
+.play-btn:disabled{opacity:.5; cursor:wait;}
+.hoeren-transcript{margin-top:16px; font-size:14px; color:var(--ink-faint); border-top:1px solid var(--line); padding-top:14px; display:none;}
+.hoeren-transcript.shown{display:block;}
+.link-btn{background:none; border:none; color:var(--red); font-size:13px; font-weight:600; padding:0; margin-top:10px;}
+
+.exercise-box{background:var(--paper-alt); border:1px solid var(--line); border-radius:var(--radius-l); padding:24px; margin-top:10px;}
+.exercise-box h4{font-family:var(--font-head); font-size:16px; margin-bottom:16px;}
+.q-block{margin-bottom:22px;}
+.q-block:last-of-type{margin-bottom:0;}
+.q-text{font-weight:600; margin-bottom:10px; font-size:15px;}
+.q-feedback{font-size:13px; margin-top:8px; font-weight:500;}
+.q-feedback.ok{color:var(--gold);}
+.q-feedback.bad{color:var(--brick);}
+.exercise-result{text-align:center; padding:20px 0 4px;}
+.exercise-result .score{font-family:var(--font-head); font-size:34px; color:var(--gold);}
+.exercise-result p{color:var(--ink-soft); margin-top:6px; font-size:14px;}
+
+/* ---- TOAST / XP POP ---- */
+.toast{position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--ink); color:var(--paper); padding:12px 20px; border-radius:99px; font-size:14px; font-weight:600; opacity:0; pointer-events:none; transition:all .3s ease; z-index:100; display:flex; align-items:center; gap:8px; box-shadow:0 10px 30px rgba(0,0,0,.25);}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+/* progress ring */
+svg.ring circle{fill:none; stroke-width:5;}
+.ring-bg{stroke:var(--line);}
+.ring-fg{stroke:var(--gold); stroke-linecap:round; transition:stroke-dashoffset .5s ease;}
+
+.badge-shelf{display:flex; gap:10px; flex-wrap:wrap; max-width:920px; margin:0 auto; padding:0 20px 40px;}
+.badge-chip{display:flex; align-items:center; gap:7px; background:var(--card-bg); border:1px solid var(--line); border-radius:99px; padding:7px 14px 7px 8px; font-size:13px; font-weight:500;}
+.badge-chip .ic{width:24px; height:24px; border-radius:50%; background:var(--gold-soft); display:flex; align-items:center; justify-content:center; font-size:13px;}
+
+/* footer / privacy notice */
+.app-footer{border-top:1px solid var(--line); padding:22px 20px 28px; margin-top:20px;}
+.app-footer .wrap{display:flex; flex-direction:column; gap:6px; max-width:920px;}
+.app-footer p{font-size:12.5px; color:var(--ink-faint); line-height:1.6;}
+.app-footer p strong{color:var(--ink-soft); font-weight:600;}
+
+/* reference tables */
+.ref-block{margin-bottom:30px;}
+.ref-block h4{font-family:var(--font-head); font-size:15px; color:var(--gold); margin-bottom:10px;}
+.table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:var(--radius-m); background:var(--card-bg);}
+table.ref-table{border-collapse:collapse; width:100%; min-width:480px; font-size:13.5px;}
+table.ref-table th, table.ref-table td{text-align:left; padding:10px 14px; border-bottom:1px solid var(--line); white-space:nowrap;}
+table.ref-table th{font-family:var(--font-head); font-weight:600; color:var(--ink-soft); background:var(--paper-alt); font-size:12px; text-transform:uppercase; letter-spacing:.03em;}
+table.ref-table tr:last-child td{border-bottom:none;}
+table.ref-table td:first-child{font-weight:600;}
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-row">
+    <button class="brand" onclick="goHero()">
+      <span class="brand-mark">SF</span>
+      <span class="brand-name">Sprachfluency</span>
+    </button>
+    <div class="header-stats">
+      <span class="stat-pill" id="stat-streak">🔥 <b>0</b></span>
+      <span class="stat-pill" id="stat-xp">✦ <b>0</b> XP</span>
+      <button class="stat-pill" style="cursor:pointer;" onclick="openReference()" aria-label="Référence grammaticale">📚</button>
+      <button class="stat-pill" style="cursor:pointer;" onclick="openThemen()" aria-label="Sujets d'examen">📝</button>
+      <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Changer d'apparence">☾</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===== HERO ===== -->
+  <!-- ===== INSCRIPTION (prénom, 100% local) ===== -->
+  <section class="view" id="view-signup">
+    <div class="test-shell" style="padding-top:64px;">
+      <div class="hero-eyebrow-wordmark">Bienvenue sur Sprachfluency</div>
+      <h1 style="font-size:30px; margin-bottom:14px;">Comment tu t'appelles ?</h1>
+      <p style="color:var(--ink-soft); font-size:15px; margin-bottom:24px;">Juste pour personnaliser ton expérience — ça reste sur ton appareil, sans compte ni mot de passe.</p>
+      <input id="signup-name-input" type="text" maxlength="30" placeholder="Ton prénom ou pseudo" style="width:100%; border:1px solid var(--line); border-radius:var(--radius-s); padding:14px 16px; font-size:16px; font-family:var(--font-body); background:var(--card-bg); color:var(--ink); margin-bottom:16px;">
+      <button class="btn btn-primary" onclick="submitSignup()" style="width:100%;">Commencer</button>
+    </div>
+  </section>
+
+  <section class="view active" id="view-hero">
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="hero-eyebrow-wordmark" id="hero-greeting">Von A1 bis C1</div>
+        <h1>Parle l'allemand <span class="accent">couramment</span>, pas seulement correctement.</h1>
+        <p class="lead">Grammaire, vocabulaire thématique, Redemittel pour le Schreiben et le Sprechen, et exercices d'écoute — un parcours complet et interactif, à ton rythme.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="startPlacement()">Faire le test de niveau</button>
+          <button class="btn btn-secondary" onclick="showLevelMap()">Choisir mon niveau moi-même</button>
+        </div>
+        <div class="hero-path" id="hero-path-preview"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PLACEMENT TEST ===== -->
+  <section class="view" id="view-test">
+    <div class="test-shell">
+      <div class="test-progress"><div class="test-progress-fill" id="test-progress-fill" style="width:0%"></div></div>
+      <div class="test-q-label" id="test-q-label">Question 1/12</div>
+      <div class="test-q" id="test-q-text"></div>
+      <div class="opt-list" id="test-opts"></div>
+      <div class="test-nav"><button class="btn btn-ghost" onclick="goHero()">Annuler</button></div>
+    </div>
+  </section>
+
+  <!-- ===== LEVEL MAP ===== -->
+  <section class="view" id="view-map">
+    <div class="section-head">
+      <button class="back-link" onclick="goHero()">← Accueil</button>
+      <h2>Ton parcours</h2>
+      <p>Choisis un niveau pour commencer. Chaque niveau se débloque en terminant le précédent — ou choisis-le librement.</p>
+    </div>
+    <div class="level-path" id="level-path"></div>
+  </section>
+
+  <!-- ===== DASHBOARD (thèmes d'un niveau) ===== -->
+  <section class="view" id="view-dashboard">
+    <div class="dash-header">
+      <button class="back-link" onclick="showLevelMap()">← Tous les niveaux</button>
+      <div class="dash-title-row">
+        <h2 id="dash-level-title">Niveau</h2>
+        <span class="level-badge-tag" id="dash-level-tag"></span>
+      </div>
+      <p style="color:var(--ink-soft); font-size:14px; margin-top:6px;" id="dash-level-desc"></p>
+    </div>
+    <div class="theme-grid" id="theme-grid"></div>
+  </section>
+
+  <!-- ===== THEME (skills) ===== -->
+  <section class="view" id="view-skill">
+    <div class="skill-header">
+      <button class="back-link" id="skill-back">← Retour</button>
+      <h2 id="skill-title">Thème</h2>
+    </div>
+    <div class="tabs" id="skill-tabs"></div>
+    <div class="tab-panel active" id="panel-grammar"></div>
+    <div class="tab-panel" id="panel-vocab"></div>
+    <div class="tab-panel" id="panel-redemittel"></div>
+    <div class="tab-panel" id="panel-hoeren"></div>
+  </section>
+
+  <!-- ===== PROFILE / BADGES ===== -->
+  <section class="view" id="view-profile">
+    <div class="section-head">
+      <button class="back-link" onclick="goHero()">← Accueil</button>
+      <h2>Tes récompenses</h2>
+      <p>Chaque badge marque une étape franchie sur ton chemin vers le C1.</p>
+      <p style="margin-top:10px; font-size:14px; color:var(--ink-soft);">Prénom : <strong id="profile-name-display" style="color:var(--ink);">—</strong> · <button class="link-btn" style="display:inline;" onclick="editUserName()">modifier</button></p>
+    </div>
+    <div class="badge-shelf" id="badge-shelf"></div>
+
+    <div class="wrap" style="padding:10px 20px 50px;">
+      <div class="lesson-block">
+        <h4>Sauvegarde</h4>
+        <div class="explain-box">
+          <div class="rule">Ta progression est enregistrée uniquement sur cet appareil. Exporte-la régulièrement pour ne rien perdre, ou pour la transférer sur un autre appareil.</div>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
+          <button class="btn btn-secondary" onclick="exportProgress()">📤 Exporter ma progression</button>
+          <button class="btn btn-secondary" onclick="document.getElementById('import-file-input').click()">📥 Importer une sauvegarde</button>
+          <input type="file" id="import-file-input" accept="application/json" style="display:none;" onchange="importProgress(event)">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== RÉFÉRENCE ===== -->
+  <section class="view" id="view-reference">
+    <div class="section-head">
+      <button class="back-link" onclick="goHero()">← Accueil</button>
+      <h2>Référence grammaticale</h2>
+      <p>Les tableaux à garder sous la main : verbes irréguliers, déclinaisons, conjugaison.</p>
+    </div>
+    <div class="tabs" id="ref-tabs">
+      <button class="tab-btn active" data-tab="ref-verben">Verbes irréguliers</button>
+      <button class="tab-btn" data-tab="ref-deklination">Déclinaisons</button>
+      <button class="tab-btn" data-tab="ref-konjugation">Konjugation</button>
+      <button class="tab-btn" data-tab="ref-modal">Modalverben</button>
+      <button class="tab-btn" data-tab="ref-zeit">Zeitausdrücke</button>
+    </div>
+    <div class="tab-panel active" id="panel-ref-verben"></div>
+    <div class="tab-panel" id="panel-ref-deklination"></div>
+    <div class="tab-panel" id="panel-ref-konjugation"></div>
+    <div class="tab-panel" id="panel-ref-modal"></div>
+    <div class="tab-panel" id="panel-ref-zeit"></div>
+  </section>
+
+  <!-- ===== SUJETS D'EXAMEN (Vor- und Nachteile) ===== -->
+  <section class="view" id="view-themen">
+    <div class="section-head">
+      <button class="back-link" onclick="goHero()">← Accueil</button>
+      <h2>Prüfungsthemen : Vor- und Nachteile</h2>
+      <p>Les sujets classiques de l'épreuve écrite (Stellungnahme) et orale — pour t'entraîner à peser le pour et le contre sur des thèmes variés.</p>
+    </div>
+    <div class="wrap">
+      <div class="lesson-block">
+        <h4>Comment structurer ta Stellungnahme</h4>
+        <div class="explain-box">
+          ${ESSAY_STRUCTURE.map(([step,desc,phrase])=>`<div class="example-line"><span class="example-de">${step} — ${phrase}</span><span class="example-fr">${desc}</span></div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="theme-grid" id="themen-grid"></div>
+  </section>
+
+  <section class="view" id="view-themen-detail">
+    <div class="skill-header">
+      <button class="back-link" onclick="openThemen()">← Tous les sujets</button>
+      <h2 id="themen-detail-title">Thema</h2>
+      <p id="themen-detail-frage" style="color:var(--ink-soft); font-size:15px; margin-top:8px;"></p>
+    </div>
+    <div class="tab-panel active" style="max-width:760px; margin:0 auto; padding:24px 20px 60px;" id="themen-detail-content"></div>
+  </section>
+
+  <!-- ===== A1-TESTTRAINING ===== -->
+  <section class="view" id="view-a1test">
+    <div class="section-head">
+      <button class="back-link" onclick="openDashboard('A1')">← Niveau A1</button>
+      <h2>Testtraining : Start Deutsch 1</h2>
+      <p>Des exercices originaux au format de l'examen A1 — Hören, Lesen et Schreiben — pour t'entraîner dans les conditions du test.</p>
+    </div>
+    <div class="tabs" id="a1test-tabs">
+      <button class="tab-btn active" data-tab="a1test-hoeren">Hören</button>
+      <button class="tab-btn" data-tab="a1test-lesen">Lesen</button>
+      <button class="tab-btn" data-tab="a1test-schreiben">Schreiben</button>
+    </div>
+    <div class="tab-panel active" id="panel-a1test-hoeren"></div>
+    <div class="tab-panel" id="panel-a1test-lesen"></div>
+    <div class="tab-panel" id="panel-a1test-schreiben"></div>
+  </section>
+
+</main>
+
+<footer class="app-footer">
+  <div class="wrap">
+    <p><strong>Confidentialité :</strong> Sprachfluency ne collecte aucune donnée personnelle. Il n'y a ni compte, ni email, ni mot de passe, et rien n'est envoyé vers un serveur.</p>
+    <p><strong>Stockage local :</strong> ta progression (niveau, XP, badges) est enregistrée uniquement dans ce navigateur, sur cet appareil. Si tu vides le cache du navigateur, changes d'appareil ou utilises la navigation privée, ta progression sera perdue.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= CONTENT DATA ================= */
+const LEVELS = [
+  {id:'A1', label:'Découverte', desc:"Les bases pour se présenter et vivre le quotidien.",
+    themes:[
+      {id:'a1-alltag', title:'Begrüßung & Alltag', sub:'Se saluer, se présenter',
+        grammar:{
+          title:"Le verbe « sein » (être) au présent",
+          rule:"« Sein » est irrégulier et sert à se présenter, décrire un état. Il faut le connaître par cœur : ich bin, du bist, er/sie/es ist, wir sind, ihr seid, sie/Sie sind.",
+          examples:[["Ich bin müde.","Je suis fatigué(e)."],["Wie geht es dir?","Comment vas-tu ?"],["Wir sind Freunde.","Nous sommes amis."]],
+          quiz:[
+            {q:"Er ___ Lehrer.", opts:["bin","bist","ist","sind"], a:2},
+            {q:"Wir ___ aus Abidjan.", opts:["sind","bist","ist","bin"], a:0},
+            {q:"___ du müde?", opts:["Bin","Bist","Ist","Seid"], a:1},
+            {q:"Ihr ___ sehr nett.", opts:["ist","sind","seid","bin"], a:2}
+          ]},
+        vocab:{items:[["Hallo","Salut"],["Tschüss","Au revoir (familier)"],["Guten Morgen","Bonjour (matin)"],["Guten Abend","Bonsoir"],["Wie geht's?","Comment ça va ?"],["Danke","Merci"],["Bitte","S'il te plaît / je t'en prie"],["Ja","Oui"],["Nein","Non"],["Entschuldigung","Excusez-moi"]],
+          quiz:[
+            {q:"Comment dit-on « merci » ?", opts:["Bitte","Danke","Tschüss","Ja"], a:1},
+            {q:"« Guten Abend » veut dire :", opts:["Bonjour","Bonne nuit","Bonsoir","Au revoir"], a:2},
+            {q:"« Entschuldigung » sert à :", opts:["dire oui","s'excuser","saluer","remercier"], a:1}
+          ]},
+        redemittel:{items:[
+            ["Wie geht es Ihnen?","Pour demander (poliment) comment va quelqu'un."],
+            ["Mir geht es gut, danke. Und Ihnen?","Répondre puis relancer la question — essentiel en Sprechen."],
+            ["Ich heiße… / Mein Name ist…","Se présenter à l'oral comme à l'écrit."]
+          ],
+          quiz:[{q:"Pour relancer poliment une question sur l'état de santé, tu dis :", opts:["Ich heiße Anna.","Und Ihnen?","Tschüss!","Entschuldigung."], a:1}]},
+        hoeren:{text:"Guten Tag! Wie heißen Sie? Ich heiße Anna. Und Sie? Ich heiße Markus. Freut mich, Markus!",
+          questions:[{q:"Wie heißt die Frau im Dialog?", opts:["Anna","Erika","Sabine"], a:0},{q:"Was sagt Markus am Ende?", opts:["Tschüss","Freut mich","Danke schön"], a:1}]}
+      },
+      {id:'a1-familie', title:'Familie', sub:'Parler de sa famille',
+        grammar:{
+          title:"Les articles possessifs (mein, dein…)",
+          rule:"L'article possessif s'accorde avec le nom qui suit : mein Vater (masc.), meine Mutter (fém.), mein Kind (neutre). Au pluriel, on ajoute -e : meine Eltern.",
+          examples:[["Das ist mein Vater.","C'est mon père."],["Das ist meine Schwester.","C'est ma sœur."],["Ich habe zwei Geschwister.","J'ai deux frères et sœurs."]],
+          quiz:[
+            {q:"Das ist ___ Mutter. (moi)", opts:["mein","meine","meinen","meins"], a:1},
+            {q:"___ Bruder wohnt in Berlin. (moi)", opts:["Meine","Mein","Meinen","Meiner"], a:1},
+            {q:"Wie heißen ___ Eltern? (toi)", opts:["dein","deine","deinen","deins"], a:1}
+          ]},
+        vocab:{items:[["die Mutter","la mère"],["der Vater","le père"],["die Schwester","la sœur"],["der Bruder","le frère"],["die Eltern","les parents"],["die Großmutter","la grand-mère"],["der Großvater","le grand-père"],["das Kind","l'enfant"]],
+          quiz:[
+            {q:"« der Bruder » signifie :", opts:["la sœur","le frère","la mère","le père"], a:1},
+            {q:"Comment dit-on « les parents » ?", opts:["die Eltern","die Kinder","die Familie","die Geschwister"], a:0}
+          ]},
+        redemittel:{items:[
+            ["Ich habe eine große/kleine Familie.","Décrire sa famille simplement."],
+            ["Wir sind zu fünft.","Dire le nombre de personnes dans la famille."]
+          ],
+          quiz:[{q:"Pour dire « nous sommes cinq », on utilise :", opts:["Ich habe fünf.","Wir sind zu fünft.","Meine Familie ist fünf.","Fünf Familie."], a:1}]},
+        hoeren:{text:"Das ist meine Familie. Mein Vater heißt Paul, meine Mutter heißt Marie. Ich habe eine Schwester. Sie heißt Léa.",
+          questions:[{q:"Wie heißt die Schwester?", opts:["Marie","Léa","Paul"], a:1},{q:"Wie viele Geschwister hat die Person?", opts:["Keine","Eine","Zwei"], a:1}]}
+      },
+      {id:'a1-zahlen', title:'Zahlen & Uhrzeit', sub:'Compter et dire l\u2019heure',
+        grammar:{
+          title:"Wie spät ist es ? (Dire l'heure)",
+          rule:"Deux façons de dire l'heure. Officielle (24h) : Es ist vierzehn Uhr dreißig. Courante : on annonce souvent la demi-heure AVANT l'heure pleine suivante — halb neun = 8h30 (litt. « demie avant neuf »). Viertel nach / Viertel vor + heure suivante ou précédente.",
+          examples:[["Es ist ein Uhr.","Il est une heure."],["Es ist halb neun.","Il est huit heures et demie."],["Es ist Viertel vor zehn.","Il est dix heures moins le quart."]],
+          quiz:[
+            {q:"14:30 en langage courant se dit :", opts:["halb drei","halb zwei","Viertel nach zwei","Viertel vor drei"], a:0},
+            {q:"« Viertel vor sechs » signifie :", opts:["6h15","5h45","6h45","5h15"], a:1},
+            {q:"Comment demande-t-on l'heure ?", opts:["Wie viel kostet es?","Wie spät ist es?","Wie alt bist du?","Wie geht's?"], a:1},
+            {q:"09:15 se dit :", opts:["Viertel nach neun","Viertel vor neun","halb zehn","neun Uhr fünfzig"], a:0}
+          ]},
+        vocab:{items:[["die Uhr","l'heure, la montre"],["die Minute","la minute"],["die Stunde","l'heure (durée)"],["der Mittag","midi"],["die Mitternacht","minuit"],["null","zéro"],["zehn","dix"],["zwanzig","vingt"],["hundert","cent"],["tausend","mille"]],
+          quiz:[
+            {q:"« die Stunde » désigne :", opts:["la minute","l'heure (durée)","midi","minuit"], a:1},
+            {q:"Comment dit-on « cent » ?", opts:["zehn","hundert","tausend","zwanzig"], a:1},
+            {q:"« die Mitternacht » c'est :", opts:["midi","minuit","une minute","une heure"], a:1}
+          ]},
+        redemittel:{items:[
+            ["Wie spät ist es, bitte?","Demander l'heure poliment à un inconnu."],
+            ["Um wie viel Uhr beginnt…?","Demander l'heure d'un événement."],
+            ["Entschuldigung, haben Sie eine Uhr?","Autre façon polie de demander l'heure."]
+          ],
+          quiz:[{q:"Pour demander l'heure à laquelle commence un cours :", opts:["Wie spät ist es?","Um wie viel Uhr beginnt der Kurs?","Wie viel kostet der Kurs?","Wo ist der Kurs?"], a:1}]},
+        hoeren:{text:"Entschuldigung, wie spät ist es? Es ist Viertel vor neun. Und um wie viel Uhr beginnt der Deutschkurs? Der Kurs beginnt um neun Uhr.",
+          questions:[{q:"Wie spät ist es im Dialog?", opts:["Viertel nach neun","Viertel vor neun","halb neun"], a:1},{q:"Um wie viel Uhr beginnt der Kurs?", opts:["Acht Uhr","Neun Uhr","Zehn Uhr"], a:1}]}
+      }
+    ]},
+  {id:'A2', label:'Premiers pas assurés', desc:"Voyager, faire ses courses, gérer le quotidien seul(e).",
+    themes:[
+      {id:'a2-reisen', title:'Reisen', sub:'Voyager, se déplacer',
+        grammar:{
+          title:"Les verbes de modalité : können, müssen, wollen",
+          rule:"Le verbe modal se conjugue en 2e position, le verbe principal reste à l'infinitif en fin de phrase. Ex : Ich möchte nach Berlin fahren.",
+          examples:[["Ich möchte nach Berlin fahren.","Je voudrais aller à Berlin."],["Wir müssen den Zug nehmen.","Nous devons prendre le train."],["Kannst du mir helfen?","Peux-tu m'aider ?"]],
+          quiz:[
+            {q:"Ich ___ nach Köln fahren. (vouloir)", opts:["will","wollt","wollen","willst"], a:0},
+            {q:"Wir ___ um 8 Uhr abfahren. (devoir)", opts:["müsst","müssen","muss","musst"], a:1},
+            {q:"___ du mir bitte helfen?", opts:["Kann","Kannst","Könnt","Können"], a:1}
+          ]},
+        vocab:{items:[["der Bahnhof","la gare"],["das Ticket","le billet"],["der Flughafen","l'aéroport"],["das Gepäck","les bagages"],["die Ankunft","l'arrivée"],["die Abfahrt","le départ"],["das Hotel","l'hôtel"],["die Reservierung","la réservation"]],
+          quiz:[
+            {q:"« die Abfahrt » veut dire :", opts:["l'arrivée","le départ","le billet","les bagages"], a:1},
+            {q:"« der Flughafen » c'est :", opts:["la gare","l'hôtel","l'aéroport","le billet"], a:2}
+          ]},
+        redemittel:{items:[
+            ["Wie komme ich zum Bahnhof?","Demander son chemin."],
+            ["Wann fährt der Zug ab?","Demander un horaire de départ."],
+            ["Ich hätte gern ein Zimmer für zwei Nächte.","Réserver poliment à l'hôtel."]
+          ],
+          quiz:[{q:"Pour réserver une chambre poliment :", opts:["Ich will ein Zimmer.","Ich hätte gern ein Zimmer.","Zimmer, bitte, jetzt.","Gib mir ein Zimmer."], a:1}]},
+        hoeren:{text:"Entschuldigung, wie komme ich zum Bahnhof? Gehen Sie geradeaus und dann links. Der Zug nach München fährt um 14 Uhr ab.",
+          questions:[{q:"Wohin fährt der Zug?", opts:["München","Berlin","Köln"], a:0},{q:"Um wie viel Uhr fährt der Zug ab?", opts:["12 Uhr","14 Uhr","16 Uhr"], a:1}]}
+      },
+      {id:'a2-einkaufen', title:'Einkaufen', sub:'Faire les courses',
+        grammar:{
+          title:"L'accusatif après haben, kaufen, möchten",
+          rule:"Après ces verbes, le nom masculin change : der → den. Le féminin et le neutre ne changent pas. Ex : Ich kaufe einen Rock (masc.), eine Jacke (fém.), ein Hemd (neutre).",
+          examples:[["Ich möchte einen Rock kaufen.","Je voudrais acheter une jupe."],["Hast du eine Tasche?","As-tu un sac ?"],["Ich nehme das Hemd.","Je prends la chemise."]],
+          quiz:[
+            {q:"Ich kaufe ___ Rock. (der Rock)", opts:["der","den","dem","des"], a:1},
+            {q:"Ich möchte ___ Jacke. (die Jacke)", opts:["die","der","den","dem"], a:0},
+            {q:"Haben Sie ___ Hemd in Größe M? (das Hemd)", opts:["den","dem","ein","einen"], a:2}
+          ]},
+        vocab:{items:[["der Preis","le prix"],["die Kasse","la caisse"],["billig","bon marché"],["teuer","cher"],["die Größe","la taille"],["anprobieren","essayer (un vêtement)"],["das Geschäft","le magasin"],["bezahlen","payer"]],
+          quiz:[
+            {q:"« teuer » signifie :", opts:["bon marché","cher","gratuit","joli"], a:1},
+            {q:"« anprobieren » c'est :", opts:["payer","essayer","acheter","vendre"], a:1}
+          ]},
+        redemittel:{items:[
+            ["Was kostet das?","Demander le prix."],
+            ["Haben Sie das in Größe M?","Demander une taille précise."],
+            ["Ich nehme es.","Conclure un achat."]
+          ],
+          quiz:[{q:"Pour demander le prix d'un article :", opts:["Ich nehme es.","Was kostet das?","Haben Sie das?","Ich möchte bezahlen."], a:1}]},
+        hoeren:{text:"Guten Tag, was kostet dieser Rock? Er kostet 25 Euro. Haben Sie ihn in Größe 38? Ja, einen Moment bitte.",
+          questions:[{q:"Was möchte die Kundin kaufen?", opts:["ein Hemd","einen Rock","eine Jacke"], a:1},{q:"Wie viel kostet der Rock?", opts:["15 Euro","25 Euro","35 Euro"], a:1}]}
+      },
+      {id:'a2-gesundheit', title:'Gesundheit', sub:'Chez le médecin, parler de sa santé',
+        grammar:{
+          title:"Verbes réfléchis et « sollen » pour conseiller",
+          rule:"Les verbes réfléchis se construisent avec « sich » : sich fühlen (se sentir) — ich fühle mich, du fühlst dich, er/sie fühlt sich. Pour donner un conseil : « sollen » — Du solltest zum Arzt gehen.",
+          examples:[["Ich fühle mich krank.","Je me sens malade."],["Du solltest viel trinken.","Tu devrais boire beaucoup."],["Er fühlt sich heute besser.","Il se sent mieux aujourd'hui."]],
+          quiz:[
+            {q:"Ich fühle ___ nicht gut.", opts:["mich","dich","sich","uns"], a:0},
+            {q:"Du ___ zum Arzt gehen. (conseil)", opts:["solltest","sollst","sollten","soll"], a:0},
+            {q:"Wie fühlst du ___?", opts:["mich","dich","sich","euch"], a:1}
+          ]},
+        vocab:{items:[["der Arzt","le médecin"],["die Apotheke","la pharmacie"],["die Schmerzen","les douleurs"],["die Erkältung","le rhume"],["das Fieber","la fièvre"],["die Tablette","le comprimé"],["der Termin","le rendez-vous"],["gesund / krank","en bonne santé / malade"]],
+          quiz:[
+            {q:"« die Erkältung » c'est :", opts:["la fièvre","le rhume","la douleur","le comprimé"], a:1},
+            {q:"« der Termin » désigne :", opts:["le médecin","la pharmacie","le rendez-vous","le comprimé"], a:2}
+          ]},
+        redemittel:{items:[
+            ["Was fehlt Ihnen?","Question typique du médecin pour demander le symptôme."],
+            ["Ich habe Kopfschmerzen / Halsschmerzen.","Décrire un symptôme précis."],
+            ["Gute Besserung!","Souhaiter un bon rétablissement."]
+          ],
+          quiz:[{q:"Pour souhaiter un bon rétablissement :", opts:["Was fehlt Ihnen?","Gute Besserung!","Ich habe Fieber.","Guten Termin!"], a:1}]},
+        hoeren:{text:"Guten Tag, was fehlt Ihnen? Ich habe seit zwei Tagen Kopfschmerzen und Fieber. Das klingt nach einer Erkältung. Sie sollten viel trinken und sich ausruhen.",
+          questions:[{q:"Seit wann hat die Person Kopfschmerzen?", opts:["Ein Tag","Zwei Tage","Eine Woche"], a:1},{q:"Was empfiehlt der Arzt?", opts:["Sport treiben","Viel trinken und sich ausruhen","Arbeiten gehen"], a:1}]}
+      }
+    ]},
+  {id:'B1', label:'Autonomie', desc:"Argumenter, écrire des lettres, comprendre des sujets concrets — le cœur de l'examen Goethe B1.",
+    themes:[
+      {id:'b1-arbeit', title:'Arbeit & Beruf', sub:'Le monde du travail',
+        grammar:{
+          title:"Les subordonnées avec weil, dass, obwohl",
+          rule:"Dans une subordonnée, le verbe conjugué passe en toute dernière position. Ex : Ich bin müde, weil ich viel gearbeitet habe. — Obwohl es regnet, gehe ich raus.",
+          examples:[["Ich bin müde, weil ich viel gearbeitet habe.","Je suis fatigué(e) car j'ai beaucoup travaillé."],["Er sagt, dass er pünktlich kommt.","Il dit qu'il viendra à l'heure."],["Obwohl es regnet, gehe ich spazieren.","Bien qu'il pleuve, je vais me promener."]],
+          quiz:[
+            {q:"Ich bleibe zu Hause, weil ich krank ___.", opts:["bin","ich bin","bin ich","bins"], a:0},
+            {q:"Sie sagt, dass sie morgen ___.", opts:["kommt sie","kommt","sie kommt","kommen"], a:1},
+            {q:"___ es kalt ist, gehen wir schwimmen.", opts:["Weil","Dass","Obwohl","Und"], a:2}
+          ]},
+        vocab:{items:[["die Bewerbung","la candidature"],["der Lebenslauf","le CV"],["das Vorstellungsgespräch","l'entretien d'embauche"],["die Erfahrung","l'expérience"],["die Fähigkeit","la compétence"],["der Kollege","le collègue"],["die Teilzeit","le temps partiel"],["die Vollzeit","le temps plein"]],
+          quiz:[
+            {q:"« das Vorstellungsgespräch » c'est :", opts:["le CV","l'entretien d'embauche","la candidature","le salaire"], a:1},
+            {q:"« die Fähigkeit » signifie :", opts:["l'expérience","le collègue","la compétence","le contrat"], a:2}
+          ]},
+        redemittel:{items:[
+            ["Meiner Meinung nach…","Introduire son opinion à l'écrit comme à l'oral."],
+            ["Ich bin der Ansicht, dass…","Formule plus formelle pour exprimer un avis."],
+            ["Ein Vorteil ist… Ein Nachteil ist…","Structurer un avantage/inconvénient — clé pour le Schreiben B1."]
+          ],
+          quiz:[{q:"Pour introduire ton opinion à l'écrit, tu commences par :", opts:["Ein Nachteil ist…","Meiner Meinung nach…","Der Kollege sagt…","Die Bewerbung ist…"], a:1}]},
+        hoeren:{text:"Ich arbeite seit drei Jahren als Ingenieurin. Die Arbeit macht mir Spaß, obwohl sie manchmal stressig ist. Nächstes Jahr möchte ich Vollzeit arbeiten.",
+          questions:[{q:"Seit wann arbeitet die Person?", opts:["Ein Jahr","Drei Jahre","Fünf Jahre"], a:1},{q:"Was möchte sie nächstes Jahr?", opts:["Teilzeit arbeiten","Vollzeit arbeiten","Aufhören"], a:1}]}
+      },
+      {id:'b1-meinung', title:'Meinung äußern', sub:'Exprimer et structurer son avis',
+        grammar:{
+          title:"Les connecteurs de cause et de conséquence",
+          rule:"« weil » et « da » (cause) envoient le verbe à la fin. « deshalb », « deswegen », « daher » (conséquence) sont suivis directement du verbe conjugué (position 2, sujet après). Ex : Es regnet, deshalb bleibe ich zu Hause.",
+          examples:[["Da ich müde bin, gehe ich früh ins Bett.","Comme je suis fatigué(e), je me couche tôt."],["Es regnet, deshalb bleibe ich zu Hause.","Il pleut, donc je reste à la maison."],["Sie hat viel gelernt, daher hat sie die Prüfung bestanden.","Elle a beaucoup révisé, c'est pourquoi elle a réussi l'examen."]],
+          quiz:[
+            {q:"Es ist kalt, ___ trage ich eine Jacke.", opts:["weil","deshalb","dass","obwohl"], a:1},
+            {q:"___ ich wenig Zeit habe, kann ich nicht kommen.", opts:["Deshalb","Da","Und","Aber"], a:1},
+            {q:"Sie ist krank, ___ bleibt sie zu Hause.", opts:["deswegen","weil","dass","obwohl"], a:0}
+          ]},
+        vocab:{items:[["die Meinung","l'opinion"],["der Vorteil","l'avantage"],["der Nachteil","l'inconvénient"],["die Ansicht","le point de vue"],["zustimmen","être d'accord"],["ablehnen","rejeter, refuser"],["die Argumentation","l'argumentation"]],
+          quiz:[
+            {q:"« zustimmen » signifie :", opts:["refuser","être d'accord","ignorer","critiquer"], a:1},
+            {q:"« der Nachteil » c'est :", opts:["l'avantage","l'opinion","l'inconvénient","l'argument"], a:2}
+          ]},
+        redemittel:{items:[
+            ["Einerseits…, andererseits…","Présenter deux points de vue opposés."],
+            ["Zusammenfassend lässt sich sagen, dass…","Conclure une prise de position à l'écrit."],
+            ["Ich stimme dem nicht zu, weil…","Exprimer poliment un désaccord."]
+          ],
+          quiz:[{q:"Pour conclure une rédaction (Stellungnahme), tu utilises :", opts:["Einerseits…","Zusammenfassend lässt sich sagen, dass…","Ich heiße…","Wie geht's?"], a:1}]},
+        hoeren:{text:"Meiner Meinung nach sollte man mehr Fahrrad fahren. Einerseits ist es gut für die Umwelt, andererseits hält es uns fit. Deshalb finde ich das Fahrrad besser als das Auto.",
+          questions:[{q:"Was findet die Person besser als das Auto?", opts:["Den Bus","Das Fahrrad","Den Zug"], a:1},{q:"Welches Argument wird NICHT genannt?", opts:["gut für die Umwelt","hält uns fit","billiger als das Auto"], a:2}]}
+      },
+      {id:'b1-umwelt', title:'Umwelt', sub:'Environnement et climat',
+        grammar:{
+          title:"Les propositions relatives (Relativsätze)",
+          rule:"Le pronom relatif (der/die/das…) s'accorde en genre et en nombre avec le nom remplacé, mais son cas dépend de sa fonction dans la subordonnée. Le verbe conjugué va en fin de proposition. Ex : Das Auto, das ich fahre, ist elektrisch.",
+          examples:[["Das Auto, das ich fahre, ist elektrisch.","La voiture que je conduis est électrique."],["Die Frau, die dort arbeitet, ist Umweltingenieurin.","La femme qui travaille là-bas est ingénieure en environnement."],["Der Müll, den wir trennen, wird recycelt.","Les déchets que nous trions sont recyclés."]],
+          quiz:[
+            {q:"Das Kind, ___ dort spielt, ist meine Nichte.", opts:["das","der","die","den"], a:0},
+            {q:"Der Mann, ___ ich gestern getroffen habe, ist Biologe.", opts:["den","der","das","dem"], a:0},
+            {q:"Die Firma, ___ erneuerbare Energien produziert, wächst schnell.", opts:["die","der","das","den"], a:0}
+          ]},
+        vocab:{items:[["der Klimawandel","le changement climatique"],["die Umweltverschmutzung","la pollution"],["erneuerbare Energien","les énergies renouvelables"],["recyceln","recycler"],["der Müll","les déchets"],["nachhaltig","durable"],["der CO2-Ausstoß","les émissions de CO2"]],
+          quiz:[
+            {q:"« nachhaltig » signifie :", opts:["polluant","durable","rapide","cher"], a:1},
+            {q:"« der Müll » c'est :", opts:["le climat","les déchets","l'énergie","l'eau"], a:1}
+          ]},
+        redemittel:{items:[
+            ["Um die Umwelt zu schützen, sollte man…","Structure « um…zu » pour exprimer un but — clé pour le Schreiben."],
+            ["Es ist wichtig, dass wir…","Souligner une nécessité collective."],
+            ["Ein großes Problem ist…","Introduire un problème environnemental à l'écrit."]
+          ],
+          quiz:[{q:"Pour exprimer un but (« afin de protéger… ») :", opts:["Es ist wichtig, dass…","Um die Umwelt zu schützen, sollte man…","Ein großes Problem ist…","Meiner Meinung nach…"], a:1}]},
+        hoeren:{text:"Der Klimawandel ist eines der größten Probleme unserer Zeit. Um die Umwelt zu schützen, sollte man weniger Auto fahren und mehr recyceln. Viele Städte investieren jetzt in erneuerbare Energien.",
+          questions:[{q:"Was wird als großes Problem genannt?", opts:["Der Klimawandel","Die Arbeitslosigkeit","Der Verkehr"], a:0},{q:"Was empfiehlt der Text?", opts:["Mehr fliegen","Weniger Auto fahren und recyceln","Mehr Plastik benutzen"], a:1}]}
+      }
+    ]},
+  {id:'B2', label:'Aisance', desc:"Débattre, nuancer, comprendre l'actualité — pour aller au-delà du B1.",
+    themes:[
+      {id:'b2-gesellschaft', title:'Gesellschaft & Medien', sub:'Société et médias',
+        grammar:{
+          title:"Le passif (Passiv)",
+          rule:"Le passif se forme avec « werden » + participe passé. Présent : wird + Partizip II. Passé (Präteritum) : wurde + Partizip II. Ex : Das Problem wird diskutiert. / Die Entscheidung wurde getroffen.",
+          examples:[["Das Problem wird oft diskutiert.","Le problème est souvent discuté."],["Die Entscheidung wurde gestern getroffen.","La décision a été prise hier."],["Viele Artikel werden online gelesen.","Beaucoup d'articles sont lus en ligne."]],
+          quiz:[
+            {q:"Das Buch ___ viel gelesen.", opts:["ist","wird","hat","war"], a:1},
+            {q:"Die Entscheidung ___ letzte Woche getroffen.", opts:["wird","wurde","werden","war"], a:1},
+            {q:"Diese Frage ___ oft gestellt.", opts:["wird","wurde","sind","hat"], a:0}
+          ]},
+        vocab:{items:[["die Gesellschaft","la société"],["die Medien","les médias"],["der Einfluss","l'influence"],["die Verantwortung","la responsabilité"],["die Debatte","le débat"],["kritisieren","critiquer"]],
+          quiz:[
+            {q:"« der Einfluss » signifie :", opts:["la responsabilité","l'influence","le débat","la société"], a:1},
+            {q:"« kritisieren » veut dire :", opts:["approuver","critiquer","ignorer","débattre"], a:1}
+          ]},
+        redemittel:{items:[
+            ["Es lässt sich nicht leugnen, dass…","Affirmer un fait difficilement contestable, registre soutenu."],
+            ["Kritiker argumentieren, dass…","Rapporter un point de vue tiers dans un débat."],
+            ["Im Großen und Ganzen…","Nuancer une conclusion générale."]
+          ],
+          quiz:[{q:"Pour rapporter l'avis de « certains critiques » dans un débat :", opts:["Meiner Meinung nach…","Kritiker argumentieren, dass…","Ich heiße…","Was kostet das?"], a:1}]},
+        hoeren:{text:"Die sozialen Medien haben einen großen Einfluss auf die Gesellschaft. Viele Nachrichten werden heute online verbreitet. Kritiker argumentieren jedoch, dass nicht alle Informationen zuverlässig sind.",
+          questions:[{q:"Worüber spricht der Text?", opts:["Über das Wetter","Über soziale Medien","Über Reisen"], a:1},{q:"Was sagen die Kritiker?", opts:["Alles ist zuverlässig","Nicht alle Informationen sind zuverlässig","Medien sind nutzlos"], a:1}]}
+      },
+      {id:'b2-argumentieren', title:'Argumentieren', sub:'Débattre et convaincre',
+        grammar:{
+          title:"Le Konjunktiv II (irréel/hypothèse)",
+          rule:"Pour les verbes faibles : würde + infinitif. Pour haben/sein/modaux, formes propres : hätte, wäre, könnte. Ex : Wenn ich mehr Zeit hätte, würde ich mehr lesen.",
+          examples:[["Wenn ich mehr Zeit hätte, würde ich mehr lesen.","Si j'avais plus de temps, je lirais plus."],["An deiner Stelle würde ich das nicht sagen.","À ta place, je ne dirais pas ça."],["Das wäre eine gute Idee.","Ce serait une bonne idée."]],
+          quiz:[
+            {q:"Wenn ich reich ___, würde ich reisen.", opts:["bin","wäre","war","sein"], a:1},
+            {q:"An deiner Stelle ___ ich anders reagieren.", opts:["würde","werde","wurde","bin"], a:0},
+            {q:"Das ___ eine gute Lösung sein.", opts:["ist","wäre","war","sein"], a:1}
+          ]},
+        vocab:{items:[["befürworten","être en faveur de"],["ablehnen","rejeter"],["die Gegenposition","la position opposée"],["überzeugen","convaincre"],["das Gegenargument","le contre-argument"]],
+          quiz:[
+            {q:"« befürworten » signifie :", opts:["rejeter","être en faveur de","ignorer","critiquer"], a:1},
+            {q:"« überzeugen » c'est :", opts:["convaincre","refuser","douter","attendre"], a:0}
+          ]},
+        redemittel:{items:[
+            ["Ich verstehe Ihren Standpunkt, aber…","Reconnaître l'avis de l'autre avant de nuancer — essentiel à l'oral B2."],
+            ["Das stimmt zwar, aber…","Concéder un point tout en argumentant."],
+            ["Lassen Sie mich das anders formulieren.","Reformuler pour clarifier son propos en débat."]
+          ],
+          quiz:[{q:"Pour reconnaître l'avis de ton interlocuteur avant de le nuancer, à l'oral :", opts:["Das stimmt zwar, aber…","Ich verstehe Ihren Standpunkt, aber…","Was kostet das?","Ich heiße…"], a:1}]},
+        hoeren:{text:"Ich verstehe Ihren Standpunkt, aber ich sehe das anders. Wenn wir mehr in Bildung investieren würden, hätten wir langfristig weniger Probleme. Das stimmt zwar, aber die Kosten sind hoch.",
+          questions:[{q:"Worüber diskutieren die Sprecher?", opts:["Über Reisen","Über Investitionen in Bildung","Über das Wetter"], a:1},{q:"Was ist das Gegenargument?", opts:["Bildung ist unwichtig","Die Kosten sind hoch","Es gibt keine Probleme"], a:1}]}
+      },
+      {id:'b2-politik', title:'Politik & Gesellschaft', sub:'Débattre de sujets politiques',
+        grammar:{
+          title:"Le génitif après wegen, trotz, während, aufgrund",
+          rule:"Ces prépositions formelles, fréquentes en langage politique et journalistique, régissent le génitif : wegen (à cause de), trotz (malgré), während (pendant), aufgrund (en raison de). Ex : aufgrund des Klimawandels, trotz der Kritik.",
+          examples:[["Aufgrund des Klimawandels handelt die Regierung.","En raison du changement climatique, le gouvernement agit."],["Trotz der Kritik hält der Minister an seinem Plan fest.","Malgré les critiques, le ministre maintient son plan."],["Während der Wahlkampagne gab es viele Debatten.","Pendant la campagne électorale, il y a eu beaucoup de débats."]],
+          quiz:[
+            {q:"Wegen ___ Wetters bleibt die Wahl verschoben.", opts:["des","dem","den","der"], a:0},
+            {q:"Trotz ___ Kritik bleibt sie bei ihrer Meinung.", opts:["der","die","dem","den"], a:0},
+            {q:"Während ___ Debatte kam es zum Streit.", opts:["der","die","dem","des"], a:0}
+          ]},
+        vocab:{items:[["die Regierung","le gouvernement"],["die Wahl","l'élection"],["die Partei","le parti"],["die Demokratie","la démocratie"],["das Gesetz","la loi"],["abstimmen","voter"]],
+          quiz:[
+            {q:"« abstimmen » signifie :", opts:["gouverner","voter","critiquer","légiférer"], a:1},
+            {q:"« das Gesetz » c'est :", opts:["la loi","le parti","l'élection","le vote"], a:0}
+          ]},
+        redemittel:{items:[
+            ["Aus politischer Sicht…","Introduire une analyse politique."],
+            ["Die Regierung sollte…","Formuler une recommandation politique."],
+            ["Es steht außer Frage, dass…","Affirmer un fait incontestable, registre soutenu."]
+          ],
+          quiz:[{q:"Pour affirmer qu'un fait est incontestable :", opts:["Aus politischer Sicht…","Es steht außer Frage, dass…","Die Regierung sollte…","Meiner Meinung nach…"], a:1}]},
+        hoeren:{text:"Aus politischer Sicht bleibt die Lage angespannt. Aufgrund der aktuellen Krise fordern mehrere Parteien Neuwahlen. Die Regierung sollte laut Experten schneller handeln.",
+          questions:[{q:"Was fordern mehrere Parteien?", opts:["Neuwahlen","Höhere Steuern","Mehr Ferien"], a:0},{q:"Was sollte die Regierung laut Experten tun?", opts:["Nichts tun","Schneller handeln","Zurücktreten"], a:1}]}
+      }
+    ]},
+  {id:'C1', label:'Maîtrise', desc:"Nuances fines, registre soutenu, sujets abstraits — viser la fluidité quasi native.",
+    themes:[
+      {id:'c1-abstrakt', title:'Abstrakte Themen', sub:'Sujets abstraits, registre soutenu',
+        grammar:{
+          title:"La nominalisation (verbe → nom)",
+          rule:"Le style formel allemand transforme souvent un verbe en nom pour alléger la phrase : entscheiden → die Entscheidung. Très fréquent à l'écrit C1.",
+          examples:[["Die Entscheidung fiel schwer.","La décision a été difficile à prendre. (de entscheiden)"],["Die Entwicklung der Technologie ist rasant.","Le développement de la technologie est rapide. (de entwickeln)"],["Nach langem Überlegen…","Après mûre réflexion… (de überlegen)"]],
+          quiz:[
+            {q:"Le nom formé à partir de « entwickeln » est :", opts:["die Entwicklung","der Entwickler","das Entwickeln","die Entwickelung"], a:0},
+            {q:"Le nom formé à partir de « entscheiden » est :", opts:["die Entscheid","die Entscheidung","der Entschieden","das Entscheiden"], a:1}
+          ]},
+        vocab:{items:[["die Herausforderung","le défi"],["die Perspektive","la perspective"],["die Komplexität","la complexité"],["differenzieren","différencier, nuancer"],["die Tendenz","la tendance"]],
+          quiz:[
+            {q:"« die Herausforderung » signifie :", opts:["la solution","le défi","la perspective","la tendance"], a:1},
+            {q:"« differenzieren » veut dire :", opts:["simplifier","nuancer","ignorer","résumer"], a:1}
+          ]},
+        redemittel:{items:[
+            ["Es ist unbestreitbar, dass…","Affirmer un fait avec force, registre C1."],
+            ["Dies wirft die Frage auf, ob…","Ouvrir une problématique à l'écrit soutenu."],
+            ["Vor diesem Hintergrund…","Introduire une analyse contextualisée."]
+          ],
+          quiz:[{q:"Pour ouvrir une problématique dans un essai soutenu :", opts:["Was kostet das?","Dies wirft die Frage auf, ob…","Ich heiße…","Tschüss."], a:1}]},
+        hoeren:{text:"Vor diesem Hintergrund lässt sich die Komplexität des Themas kaum leugnen. Dies wirft die Frage auf, ob unsere bisherige Perspektive überhaupt ausreicht.",
+          questions:[{q:"Welches Register hat dieser Text?", opts:["Sehr informell","Formell und abstrakt","Umgangssprachlich"], a:1},{q:"Was wird hier hinterfragt?", opts:["Ein Rezept","Die bisherige Perspektive","Ein Zugticket"], a:1}]}
+      },
+      {id:'c1-wissenschaft', title:'Wissenschaft & Technik', sub:'Science, technologie, éthique',
+        grammar:{
+          title:"Les constructions participiales",
+          rule:"Un participe présent (Partizip I) placé avant le nom fonctionne comme un adjectif étendu, très fréquent dans les textes C1 : die immer weiter fortschreitende Digitalisierung (la numérisation qui progresse sans cesse).",
+          examples:[["die rasant wachsende Technologie","la technologie qui croît rapidement"],["ein gut durchdachtes Konzept","un concept bien pensé"],["die zunehmend digitalisierte Arbeitswelt","le monde du travail de plus en plus digitalisé"]],
+          quiz:[
+            {q:"« die … fortschreitende Digitalisierung » utilise :", opts:["un infinitif","un Partizip I comme adjectif","un Konjunktiv","un passif"], a:1},
+            {q:"Un Partizip I se forme généralement avec :", opts:["-t à la fin du verbe","-end ajouté à l'infinitif","ge- devant le verbe","würde + infinitif"], a:1}
+          ]},
+        vocab:{items:[["die Entwicklung","le développement"],["die Innovation","l'innovation"],["nachhaltig","durable"],["die Auswirkung","la répercussion"],["ethisch","éthique"]],
+          quiz:[
+            {q:"« nachhaltig » signifie :", opts:["rapide","durable","dangereux","coûteux"], a:1},
+            {q:"« die Auswirkung » c'est :", opts:["la répercussion","l'innovation","le défi","la solution"], a:0}
+          ]},
+        redemittel:{items:[
+            ["Nicht zu unterschätzen ist…","Souligner l'importance d'un facteur, registre soutenu."],
+            ["Im Hinblick auf…","Introduire une perspective précise sur un sujet."],
+            ["Dies lässt sich damit erklären, dass…","Justifier une affirmation de façon nuancée."]
+          ],
+          quiz:[{q:"Pour souligner qu'un facteur ne doit pas être sous-estimé :", opts:["Nicht zu unterschätzen ist…","Was kostet das?","Ich bin müde.","Tschüss!"], a:0}]},
+        hoeren:{text:"Im Hinblick auf die rasant wachsende Technologie stellt sich die ethische Frage der Verantwortung. Nicht zu unterschätzen ist die Auswirkung auf zukünftige Generationen.",
+          questions:[{q:"Welche Frage wird gestellt?", opts:["Eine wirtschaftliche Frage","Eine ethische Frage","Eine geografische Frage"], a:1},{q:"Worauf bezieht sich die Auswirkung?", opts:["Auf die Vergangenheit","Auf zukünftige Generationen","Auf das Wetter"], a:1}]}
+      },
+      {id:'c1-konflikte', title:'Konflikte & internationale Beziehungen', sub:'Registre journalistique, discours rapporté',
+        grammar:{
+          title:"Le Konjunktiv I et le discours indirect (indirekte Rede)",
+          rule:"Le Konjunktiv I rapporte les propos de quelqu'un sans les approuver ni les contredire — typique du style journalistique. Formes fréquentes à la 3e personne : er/sie sei (sein), er/sie habe (haben), er/sie könne (können). Ex : Der Sprecher sagte, die Lage sei ernst.",
+          examples:[["Der Sprecher sagte, die Lage sei ernst.","Le porte-parole a dit que la situation était grave."],["Die Regierung erklärte, man habe eine Einigung erzielt.","Le gouvernement a déclaré qu'un accord avait été trouvé."],["Beobachter meinen, die Krise könne sich verschärfen.","Des observateurs pensent que la crise pourrait s'aggraver."]],
+          quiz:[
+            {q:"Er sagte, die Lage ___ ernst. (sein)", opts:["sei","ist","war","wäre"], a:0},
+            {q:"Sie erklärten, man ___ eine Lösung gefunden. (haben)", opts:["habe","hat","hatte","hätte"], a:0},
+            {q:"Experten meinen, die Krise ___ andauern. (können)", opts:["könne","kann","konnte","könnte"], a:0}
+          ]},
+        vocab:{items:[["der Konflikt","le conflit"],["die Verhandlung","la négociation"],["der Waffenstillstand","le cessez-le-feu"],["die Flüchtlinge","les réfugiés"],["die internationale Gemeinschaft","la communauté internationale"],["die Krise","la crise"],["vermitteln","servir de médiateur"]],
+          quiz:[
+            {q:"« der Waffenstillstand » signifie :", opts:["la négociation","le cessez-le-feu","la crise","le réfugié"], a:1},
+            {q:"« vermitteln » veut dire :", opts:["attaquer","servir de médiateur","fuir","gagner"], a:1}
+          ]},
+        redemittel:{items:[
+            ["Laut Angaben von…","Citer une source dans un compte-rendu — registre journalistique."],
+            ["Die Lage bleibt angespannt.","Formule standard pour décrire une situation de crise."],
+            ["Ein Waffenstillstand wurde vereinbart.","Rapporter un accord au passif, registre C1."]
+          ],
+          quiz:[{q:"Pour citer une source dans un compte-rendu formel :", opts:["Die Lage bleibt angespannt.","Laut Angaben von…","Ich denke, dass…","Was kostet das?"], a:1}]},
+        hoeren:{text:"Laut Angaben der internationalen Gemeinschaft bleibt die Lage in der Region weiterhin angespannt. Nach langen Verhandlungen wurde gestern ein Waffenstillstand vereinbart. Beobachter meinen jedoch, die Situation könne sich schnell wieder verschärfen.",
+          questions:[{q:"Was wurde gestern vereinbart?", opts:["Ein Waffenstillstand","Eine neue Wahl","Ein Handelsabkommen"], a:0},{q:"Wie schätzen Beobachter die Lage ein?", opts:["Als stabil","Als möglicherweise instabil","Als beendet"], a:1}]}
+      }
+    ]}
+];
+
+/* Placement test: 12 questions, increasing difficulty across levels */
+const PLACEMENT = [
+  {q:"Ich ___ Sarah.", opts:["bin","bist","ist","sind"], a:0, lvl:0},
+  {q:"Wie ___ du?", opts:["heißt","heißen","heiße","heißt du"], a:0, lvl:0},
+  {q:"Das ist ___ Vater. (moi)", opts:["mein","meine","meinen","meins"], a:0, lvl:0},
+  {q:"Ich ___ nach Berlin fahren. (vouloir)", opts:["will","wollt","wollen","willst"], a:0, lvl:1},
+  {q:"Was ___ das Ticket?", opts:["kostet","kosten","kostest","gekostet"], a:0, lvl:1},
+  {q:"Wir ___ um 8 Uhr abfahren müssen.", opts:["müssen","muss","musst","müsst"], a:0, lvl:1},
+  {q:"Ich bin müde, ___ ich viel gearbeitet habe.", opts:["weil","dass","obwohl","und"], a:0, lvl:2},
+  {q:"Meiner ___ nach ist das eine gute Idee.", opts:["Meinung","Ansicht","Gedanke","Idee"], a:0, lvl:2},
+  {q:"Es regnet, ___ bleibe ich zu Hause.", opts:["deshalb","weil","dass","obwohl"], a:0, lvl:2},
+  {q:"Die Entscheidung ___ gestern getroffen.", opts:["wurde","wird","ist","war"], a:0, lvl:3},
+  {q:"Wenn ich Zeit ___, würde ich mehr lesen.", opts:["hätte","habe","hatte","haben"], a:0, lvl:3},
+  {q:"Dies wirft die Frage ___, ob…", opts:["auf","an","aus","vor"], a:0, lvl:4}
+];
+
+const LEVEL_LABELS = {A1:'A1', A2:'A2', B1:'B1', B2:'B2', C1:'C1'};
+const BADGES_CATALOG = [
+  {id:'first', ic:'🌱', name:'Erste Schritte', desc:"Premier exercice terminé"},
+  {id:'grammar5', ic:'📐', name:'Grammatik-Profi', desc:"5 quiz de grammaire réussis"},
+  {id:'vocab10', ic:'🗂️', name:'Wortschatz-Sammler', desc:"10 quiz de vocabulaire réussis"},
+  {id:'hoeren5', ic:'🎧', name:'Hörprofi', desc:"5 exercices d'écoute terminés"},
+  {id:'themedone', ic:'⭐', name:'Thema gemeistert', desc:"Un thème complet à 100%"},
+  {id:'leveldone', ic:'🏆', name:'Level-Champion', desc:"Un niveau entier terminé"},
+  {id:'streak7', ic:'🔥', name:'7-Tage-Serie', desc:"7 jours de suite actif(ve)"}
+];
+
+/* ================= RÉFÉRENCE : verbes irréguliers, déclinaisons, conjugaison ================= */
+const IRREGULAR_VERBS = [
+  ["sein","ist","war","ist gewesen","être"],
+  ["haben","hat","hatte","hat gehabt","avoir"],
+  ["werden","wird","wurde","ist geworden","devenir"],
+  ["gehen","geht","ging","ist gegangen","aller"],
+  ["kommen","kommt","kam","ist gekommen","venir"],
+  ["fahren","fährt","fuhr","ist gefahren","aller (véhicule)"],
+  ["fliegen","fliegt","flog","ist geflogen","voler (avion)"],
+  ["sehen","sieht","sah","hat gesehen","voir"],
+  ["sprechen","spricht","sprach","hat gesprochen","parler"],
+  ["lesen","liest","las","hat gelesen","lire"],
+  ["essen","isst","aß","hat gegessen","manger"],
+  ["trinken","trinkt","trank","hat getrunken","boire"],
+  ["geben","gibt","gab","hat gegeben","donner"],
+  ["nehmen","nimmt","nahm","hat genommen","prendre"],
+  ["finden","findet","fand","hat gefunden","trouver"],
+  ["bringen","bringt","brachte","hat gebracht","apporter"],
+  ["denken","denkt","dachte","hat gedacht","penser"],
+  ["wissen","weiß","wusste","hat gewusst","savoir"],
+  ["können","kann","konnte","hat gekonnt","pouvoir"],
+  ["müssen","muss","musste","hat gemusst","devoir (obligation)"],
+  ["wollen","will","wollte","hat gewollt","vouloir"],
+  ["sollen","soll","sollte","hat gesollt","devoir (conseil)"],
+  ["dürfen","darf","durfte","hat gedurft","avoir le droit de"],
+  ["mögen","mag","mochte","hat gemocht","aimer"],
+  ["schlafen","schläft","schlief","hat geschlafen","dormir"],
+  ["helfen","hilft","half","hat geholfen","aider"],
+  ["tragen","trägt","trug","hat getragen","porter"],
+  ["waschen","wäscht","wusch","hat gewaschen","laver"],
+  ["treffen","trifft","traf","hat getroffen","rencontrer"],
+  ["schreiben","schreibt","schrieb","hat geschrieben","écrire"],
+  ["bleiben","bleibt","blieb","ist geblieben","rester"],
+  ["steigen","steigt","stieg","ist gestiegen","monter"],
+  ["fallen","fällt","fiel","ist gefallen","tomber"],
+  ["schließen","schließt","schloss","hat geschlossen","fermer"],
+  ["ziehen","zieht","zog","hat/ist gezogen","tirer / déménager"],
+  ["laufen","läuft","lief","ist gelaufen","courir"],
+  ["stehen","steht","stand","hat gestanden","être debout"],
+  ["sitzen","sitzt","saß","hat gesessen","être assis"],
+  ["liegen","liegt","lag","hat gelegen","être allongé"],
+  ["halten","hält","hielt","hat gehalten","tenir"],
+  ["anfangen","fängt an","fing an","hat angefangen","commencer"],
+  ["verstehen","versteht","verstand","hat verstanden","comprendre"],
+  ["vergessen","vergisst","vergaß","hat vergessen","oublier"]
+];
+const IRREGULAR_VERBS_QUIZ = [
+  {q:"Le prétérit de « gehen » est :", opts:["ging","gang","gegangen","geht"], a:0},
+  {q:"Le participe II de « sprechen » est :", opts:["gesprecht","gesprochen","spracht","gespricht"], a:1},
+  {q:"Le prétérit de « nehmen » est :", opts:["nahm","nehmte","genommen","nimmt"], a:0},
+  {q:"« essen » à la 3e pers. sg. du présent :", opts:["esst","isst","aßt","gegessen"], a:1},
+  {q:"Le participe II de « bleiben » utilise l'auxiliaire :", opts:["haben","sein","werden","können"], a:1},
+  {q:"Le prétérit de « wissen » est :", opts:["wisste","wusste","weißte","gewusst"], a:1}
+];
+
+const DECLENSION_TABLES = {
+  bestimmt:{
+    title:"Adjectif après article défini (der/die/das) — exemple « gut »",
+    head:["Fall","maskulin","feminin","neutrum","Plural"],
+    rows:[
+      ["Nominativ","der gute Mann","die gute Frau","das gute Kind","die guten Kinder"],
+      ["Akkusativ","den guten Mann","die gute Frau","das gute Kind","die guten Kinder"],
+      ["Dativ","dem guten Mann","der guten Frau","dem guten Kind","den guten Kindern"],
+      ["Genitiv","des guten Mannes","der guten Frau","des guten Kindes","der guten Kinder"]
+    ]},
+  unbestimmt:{
+    title:"Adjectif après article indéfini (ein/eine/ein) — exemple « gut »",
+    head:["Fall","maskulin","feminin","neutrum","Plural (meine)"],
+    rows:[
+      ["Nominativ","ein guter Mann","eine gute Frau","ein gutes Kind","meine guten Kinder"],
+      ["Akkusativ","einen guten Mann","eine gute Frau","ein gutes Kind","meine guten Kinder"],
+      ["Dativ","einem guten Mann","einer guten Frau","einem guten Kind","meinen guten Kindern"],
+      ["Genitiv","eines guten Mannes","einer guten Frau","eines guten Kindes","meiner guten Kinder"]
+    ]},
+  ohne:{
+    title:"Adjectif sans article — exemple « gut »",
+    head:["Fall","maskulin","feminin","neutrum","Plural"],
+    rows:[
+      ["Nominativ","guter Wein","gute Milch","gutes Brot","gute Kinder"],
+      ["Akkusativ","guten Wein","gute Milch","gutes Brot","gute Kinder"],
+      ["Dativ","gutem Wein","guter Milch","gutem Brot","guten Kindern"],
+      ["Genitiv","guten Weins","guter Milch","guten Brots","guter Kinder"]
+    ]}
+};
+const PRONOUN_TABLE = {
+  title:"Pronoms personnels — Nominatif / Accusatif / Datif",
+  head:["Nominativ","Akkusativ","Dativ"],
+  rows:[
+    ["ich","mich","mir"],["du","dich","dir"],["er","ihn","ihm"],["sie","sie","ihr"],
+    ["es","es","ihm"],["wir","uns","uns"],["ihr","euch","euch"],["sie / Sie","sie / Sie","ihnen / Ihnen"]
+  ]
+};
+const POSSESSIVE_TABLE = {
+  title:"Pronoms possessifs (forme de base, au masculin/neutre singulier)",
+  head:["Personne","Possessif"],
+  rows:[["ich","mein"],["du","dein"],["er / es","sein"],["sie","ihr"],["wir","unser"],["ihr","euer"],["sie / Sie","ihr / Ihr"]]
+};
+const DECLENSION_QUIZ = [
+  {q:"Ich sehe ___ Mann. (der gute Mann, Akkusativ)", opts:["den guten","der gute","dem guten","des guten"], a:0},
+  {q:"Sie hilft ___ Frau. (die gute Frau, Dativ)", opts:["die gute","der guten","den guten","des guten"], a:1},
+  {q:"Das ist das Auto ___ Mannes. (Genitiv)", opts:["der guten","des guten","dem guten","den guten"], a:1},
+  {q:"Ich gebe ___ das Buch. (à lui — Dativ)", opts:["ihn","ihm","er","ihr"], a:1},
+  {q:"Kennst du ___? (elle — Akkusativ)", opts:["sie","ihr","ihn","ihm"], a:0},
+  {q:"Das ist ___ Auto. (mon, neutre)", opts:["mein","meine","meinen","meins"], a:0}
+];
+
+const CONJUGATION_REF = {
+  blocks:[
+    {title:"Präsens régulier — exemple « machen »", lines:["ich mache","du machst","er/sie/es macht","wir machen","ihr macht","sie/Sie machen"]},
+    {title:"Präsens avec changement vocalique — exemple « fahren » (a→ä)", lines:["ich fahre","du fährst","er/sie/es fährt","wir fahren","ihr fahrt","sie/Sie fahren"]}
+  ],
+  rule:"Le Perfekt se forme avec haben ou sein (conjugué) + participe II en fin de phrase. La plupart des verbes prennent « haben » ; les verbes de mouvement ou de changement d'état prennent « sein » (gehen, kommen, fahren, sein, werden…). Le Präteritum est surtout utilisé à l'écrit/récit, et systématiquement pour sein, haben et les verbes modaux. Le Futur I se forme avec « werden » (conjugué) + infinitif en fin de phrase.",
+  examples:[["Ich habe gegessen.","J'ai mangé. (Perfekt, haben)"],["Ich bin gegangen.","Je suis allé(e). (Perfekt, sein)"],["Ich werde morgen kommen.","Je viendrai demain. (Futur I)"]]
+};
+const CONJUGATION_QUIZ = [
+  {q:"Du ___ (fahren) sehr schnell.", opts:["fährst","fahrst","fahren","fahrt"], a:0},
+  {q:"Ich ___ gestern viel gearbeitet. (haben, Perfekt)", opts:["habe","bin","hatte","war"], a:0},
+  {q:"Er ___ gestern ins Kino gegangen. (sein, Perfekt)", opts:["hat","ist","habe","war"], a:1},
+  {q:"Wir ___ nächstes Jahr nach Berlin reisen. (werden, Futur I)", opts:["werden","wird","würden","sind"], a:0},
+  {q:"Sie (elle) ___ das nicht verstehen. (können, Präteritum)", opts:["konnte","kannte","können","gekonnt"], a:0}
+];
+
+/* ================= MODALVERBEN (sens + Präteritum) ================= */
+const MODAL_MEANING = {
+  title:"Sens de chaque modal (avec « sich bewerben » = postuler)",
+  head:["Modal","Exemple","Sens"],
+  rows:[
+    ["möchten","Ich möchte mich bewerben.","C'est un souhait (poli)."],
+    ["wollen","Ich will mich bewerben.","C'est une volonté forte."],
+    ["können","Ich kann mich bewerben.","C'est possible."],
+    ["müssen","Ich muss mich bewerben.","Je n'ai pas le choix."],
+    ["sollen","Ich soll mich bewerben.","On me le demande."],
+    ["dürfen","Ich darf mich bewerben.","C'est autorisé."]
+  ]
+};
+const MODAL_PRETERITUM = {
+  title:"Au passé, on utilise le Präteritum du modal",
+  head:["Présent","Prétérit"],
+  rows:[["ich will","ich wollte"],["ich darf","ich durfte"],["ich kann","ich konnte"],["ich muss","ich musste"],["ich soll","ich sollte"]]
+};
+const MODAL_RULE = "Le modal conjugué occupe la position 2 de la phrase ; le verbe qui l'accompagne reste à l'infinitif, en toute fin de phrase. À l'oral familier, cet infinitif est parfois sous-entendu quand le sens reste clair. « möchten » n'a pas de forme au passé : on utilise « wollte » à la place.";
+const MODAL_EXAMPLES = [["Ich will Sportwissenschaft in Berlin studieren.","Je veux étudier les sciences du sport à Berlin."],["Ich kann gut Englisch (sprechen).","Je parle bien anglais. (infinitif sous-entendu à l'oral)"],["Als meine Großmutter jung war, wollte sie studieren, aber sie durfte nicht.","Quand ma grand-mère était jeune, elle voulait étudier, mais elle n'en avait pas le droit."]];
+const MODAL_QUIZ = [
+  {q:"« Ich muss arbeiten » exprime :", opts:["un souhait","une obligation, pas le choix","une autorisation","une possibilité"], a:1},
+  {q:"Le prétérit de « ich kann » est :", opts:["ich konnte","ich kannte","ich könnte","ich gekonnt"], a:0},
+  {q:"« Ich darf hier parken » signifie :", opts:["C'est interdit","C'est autorisé","C'est obligatoire","C'est impossible"], a:1},
+  {q:"Dans une phrase avec modal, le verbe principal se place :", opts:["en 2e position","juste après le modal","à la fin, à l'infinitif","avant le modal"], a:2},
+  {q:"« möchten » au passé se remplace généralement par :", opts:["mochte","wollte","sollte","durfte"], a:1}
+];
+
+/* ================= ZEITAUSDRÜCKE (expressions temporelles) ================= */
+const ZEIT_CATEGORIES = [
+  {title:"Avant / Après", head:["Allemand","Français","Exemple"], rows:[
+    ["vor","avant","Vor dem Essen wasche ich mir die Hände."],
+    ["vorher","auparavant","Ich habe vorher schon gegessen."],
+    ["zuvor","auparavant","Zuvor hatte ich nichts gewusst."],
+    ["bevor","avant que","Bevor ich schlafe, lese ich."],
+    ["nach","après","Nach der Schule gehe ich nach Hause."],
+    ["nachdem","après que","Nachdem ich gegessen hatte, ging ich spazieren."],
+    ["danach","ensuite, après cela","Wir aßen zu Abend, danach schauten wir einen Film."],
+    ["anschließend","ensuite","Wir besuchten das Museum und anschließend ein Café."],
+    ["später","plus tard","Ich rufe dich später an."]
+  ]},
+  {title:"Début / Fin", head:["Allemand","Français","Exemple"], rows:[
+    ["Anfang","début","Der Anfang des Films war spannend."],
+    ["am Anfang","au début","Am Anfang war ich nervös."],
+    ["anfangs","au début","Anfangs verstand ich nichts."],
+    ["Beginn","commencement","Der Beginn des Kurses ist um neun Uhr."],
+    ["Ende","fin","Das Ende der Geschichte war traurig."],
+    ["am Ende","à la fin","Am Ende hat alles gut geklappt."],
+    ["schließlich","finalement","Schließlich fanden wir die Lösung."],
+    ["letztendlich","finalement","Letztendlich hat er sich entschieden zu bleiben."]
+  ]},
+  {title:"Simultanéité", head:["Allemand","Français","Exemple"], rows:[
+    ["während","pendant","Während des Urlaubs habe ich viel gelesen."],
+    ["gleichzeitig","en même temps","Ich kann nicht gleichzeitig kochen und telefonieren."],
+    ["inzwischen","entre-temps","Inzwischen hat sich viel verändert."],
+    ["mittlerweile","entre-temps, désormais","Mittlerweile spricht er gut Deutsch."]
+  ]},
+  {title:"Ordre chronologique", head:["Allemand","Français","Exemple"], rows:[
+    ["zuerst","d'abord","Zuerst mache ich die Hausaufgaben."],
+    ["erst","seulement","Ich komme erst um acht Uhr an."],
+    ["dann","puis","Ich esse, dann gehe ich ins Bett."],
+    ["zum Schluss","pour finir","Zum Schluss bedanke ich mich bei allen."]
+  ]},
+  {title:"Fréquence", head:["Allemand","Français","Exemple"], rows:[
+    ["immer","toujours","Ich trinke immer Kaffee am Morgen."],
+    ["oft","souvent","Wir gehen oft ins Kino."],
+    ["häufig","fréquemment","Er macht häufig Fehler."],
+    ["manchmal","parfois","Manchmal regnet es im Sommer."],
+    ["gelegentlich","occasionnellement","Ich lese gelegentlich ein Buch."],
+    ["selten","rarement","Sie kommt selten zu spät."],
+    ["nie","jamais","Ich habe das nie gesagt."]
+  ]},
+  {title:"Ponctualité / Retard", head:["Allemand","Français","Exemple"], rows:[
+    ["pünktlich","ponctuel","Er ist immer pünktlich."],
+    ["unpünktlich","en retard (peu ponctuel)","Sie ist oft unpünktlich."],
+    ["die Verspätung","le retard","Der Zug hat Verspätung."],
+    ["sich verspäten","être en retard","Ich habe mich verspätet."],
+    ["rechtzeitig","à temps","Bitte komm rechtzeitig."],
+    ["zu spät","trop tard","Es ist schon zu spät."]
+  ]},
+  {title:"Temps présent", head:["Allemand","Français","Exemple"], rows:[
+    ["jetzt","maintenant","Jetzt muss ich gehen."],
+    ["nun","maintenant","Nun verstehe ich alles."],
+    ["gerade","en ce moment","Ich esse gerade zu Mittag."],
+    ["momentan","actuellement","Momentan bin ich sehr beschäftigt."],
+    ["derzeit","actuellement","Derzeit wohne ich in Abidjan."],
+    ["heutzutage","de nos jours","Heutzutage benutzt jeder ein Smartphone."]
+  ]},
+  {title:"Futur", head:["Allemand","Français","Exemple"], rows:[
+    ["bald","bientôt","Ich komme bald zurück."],
+    ["demnächst","prochainement","Demnächst beginnt der Kurs."],
+    ["künftig","à l'avenir","Künftig werde ich mehr Sport machen."],
+    ["in Zukunft","à l'avenir","In Zukunft möchte ich in Deutschland studieren."]
+  ]},
+  {title:"Passé", head:["Allemand","Français","Exemple"], rows:[
+    ["früher","autrefois","Früher habe ich in Abidjan gewohnt."],
+    ["damals","à cette époque","Damals war ich noch ein Kind."],
+    ["vor kurzem","récemment","Vor kurzem habe ich einen neuen Job gefunden."],
+    ["kürzlich","récemment","Kürzlich habe ich einen interessanten Film gesehen."],
+    ["eben","à l'instant","Ich habe es eben erfahren."],
+    ["gerade eben","tout à l'heure (passé récent)","Er ist gerade eben angekommen."]
+  ]},
+  {title:"Durée", head:["Allemand","Français","Exemple"], rows:[
+    ["seit","depuis","Seit zwei Jahren lerne ich Deutsch."],
+    ["für","pendant (durée prévue)","Ich fahre für eine Woche nach Berlin."],
+    ["bis","jusqu'à","Ich arbeite bis achtzehn Uhr."],
+    ["ab","à partir de","Ab morgen beginnt die Prüfungsvorbereitung."],
+    ["von ... bis","de ... à ...","Ich arbeite von neun bis siebzehn Uhr."],
+    ["innerhalb","en l'espace de","Innerhalb einer Stunde war alles fertig."]
+  ]}
+];
+const ZEIT_QUIZ = [
+  {q:"« während » signifie :", opts:["après","pendant","avant","depuis"], a:1},
+  {q:"« selten » veut dire :", opts:["souvent","toujours","rarement","jamais"], a:2},
+  {q:"« demnächst » signifie :", opts:["autrefois","prochainement","maintenant","hier"], a:1},
+  {q:"« sich verspäten » veut dire :", opts:["être à l'heure","être en retard","partir tôt","attendre"], a:1},
+  {q:"« innerhalb einer Stunde » signifie :", opts:["après une heure","en l'espace d'une heure","depuis une heure","vers une heure"], a:1},
+  {q:"« damals » signifie :", opts:["bientôt","à cette époque (passé)","maintenant","demain"], a:1},
+  {q:"« gleichzeitig » veut dire :", opts:["ensuite","en même temps","parfois","jamais"], a:1},
+  {q:"« ab morgen » signifie :", opts:["jusqu'à demain","à partir de demain","avant demain","depuis hier"], a:1}
+];
+
+/* ================= SUJETS D'EXAMEN : Vor- und Nachteile ================= */
+const ESSAY_STRUCTURE = [
+  ["1. Einleitung","Präsente le thème sans donner ton avis tout de suite.","Ein Thema, das oft diskutiert wird, ist…"],
+  ["2. Vorteile nennen","Présente 2-3 avantages avec des connecteurs.","Einerseits… / Ein Vorteil ist, dass…"],
+  ["3. Nachteile nennen","Présente 2-3 inconvénients, en les opposant aux avantages.","Andererseits… / Ein Nachteil ist, dass…"],
+  ["4. Eigene Meinung & Schluss","Donne ton avis personnel et conclus.","Meiner Meinung nach… / Zusammenfassend lässt sich sagen, dass…"]
+];
+const EXAM_TOPICS = [
+  {id:'handy-schule', title:'Handynutzung in der Schule', frage:'Sollten Handys in der Schule erlaubt sein?',
+    vorteile:["Schüler können schnell Informationen nachschlagen.","Im Notfall können Eltern und Kinder sofort kommunizieren.","Der Umgang mit digitalen Medien wird frühzeitig gelernt."],
+    nachteile:["Handys lenken vom Unterricht ab.","Cybermobbing kann leichter stattfinden.","Schüler bewegen sich in den Pausen weniger."]},
+  {id:'homeoffice', title:'Homeoffice', frage:'Ist Homeoffice die Zukunft der Arbeit?',
+    vorteile:["Man spart Zeit und Geld für den Arbeitsweg.","Die Arbeitszeit lässt sich flexibler gestalten.","Man kann Familie und Beruf besser vereinbaren."],
+    nachteile:["Der soziale Kontakt zu Kollegen fehlt.","Es ist schwerer, Arbeit und Freizeit zu trennen.","Nicht jeder hat zu Hause einen ruhigen Arbeitsplatz."]},
+  {id:'online-shopping', title:'Online-Shopping', frage:'Online einkaufen oder im Geschäft — was ist besser?',
+    vorteile:["Man kann rund um die Uhr einkaufen.","Die Preise lassen sich leicht vergleichen.","Man spart Zeit, weil man nicht hingehen muss."],
+    nachteile:["Man kann die Ware vor dem Kauf nicht anfassen oder anprobieren.","Der Versand belastet die Umwelt.","Lokale Geschäfte verlieren Kunden."]},
+  {id:'soziale-medien', title:'Soziale Medien', frage:'Welchen Einfluss haben soziale Medien auf unser Leben?',
+    vorteile:["Man bleibt leicht mit Freunden und Familie in Kontakt.","Informationen verbreiten sich schnell.","Kleine Unternehmen können sich günstig bewerben."],
+    nachteile:["Falschinformationen verbreiten sich genauso schnell.","Der Vergleich mit anderen kann psychisch belasten.","Der Konsum kostet oft sehr viel Zeit."]},
+  {id:'auto-oepnv', title:'Auto oder öffentliche Verkehrsmittel', frage:'Auto oder öffentliche Verkehrsmittel — was ist die bessere Wahl?',
+    vorteile:["Man ist unabhängig von Fahrplänen.","Man kommt bequem von Tür zu Tür.","Man kann mehr Gepäck transportieren."],
+    nachteile:["Autos verursachen mehr CO2-Ausstoß.","Parkplätze sind oft teuer und schwer zu finden.","Im Stau verliert man viel Zeit."]},
+  {id:'stadt-land', title:'Leben in der Stadt oder auf dem Land', frage:'Leben in der Stadt oder auf dem Land — was ist besser?',
+    vorteile:["Es gibt mehr Arbeitsplätze und Freizeitmöglichkeiten.","Das öffentliche Verkehrsnetz ist besser ausgebaut.","Ärzte und Geschäfte sind leicht erreichbar."],
+    nachteile:["Die Mieten sind meist sehr hoch.","Es gibt mehr Lärm und Luftverschmutzung.","Man hat weniger Kontakt zur Natur."]},
+  {id:'vier-tage-woche', title:'Vier-Tage-Woche', frage:'Sollte die Vier-Tage-Woche eingeführt werden?',
+    vorteile:["Arbeitnehmer haben mehr Zeit für Familie und Erholung.","Studien zeigen oft eine höhere Produktivität.","Weniger Pendeln bedeutet weniger Stress."],
+    nachteile:["Manche Aufgaben lassen sich nicht in vier Tagen erledigen.","Kunden können schlechter erreicht werden.","Nicht alle Branchen können das Modell umsetzen."]},
+  {id:'fernunterricht', title:'Fernunterricht', frage:'Online-Unterricht oder Präsenzunterricht — was ist effektiver?',
+    vorteile:["Man spart den Weg zur Schule oder Universität.","Man kann Vorlesungen im eigenen Tempo ansehen.","Der Unterricht ist ortsunabhängig zugänglich."],
+    nachteile:["Der direkte Kontakt zu Lehrern und Mitschülern fehlt.","Die Selbstdisziplin muss sehr hoch sein.","Technische Probleme können den Unterricht stören."]}
+];
+
+/* ================= A1-TESTTRAINING ================= */
+function openA1Test(){
+  document.querySelectorAll('#a1test-tabs .tab-btn').forEach(b=>{
+    b.onclick = ()=>{
+      document.querySelectorAll('#a1test-tabs .tab-btn').forEach(x=>x.classList.toggle('active', x===b));
+      document.querySelectorAll('#view-a1test .tab-panel').forEach(p=>p.classList.remove('active'));
+      document.getElementById('panel-'+b.dataset.tab).classList.add('active');
+    };
+  });
+  renderA1Hoeren();
+  renderA1Lesen();
+  renderA1Schreiben();
+  document.querySelectorAll('#a1test-tabs .tab-btn').forEach((b,i)=>b.classList.toggle('active', i===0));
+  document.querySelectorAll('#view-a1test .tab-panel').forEach((p,i)=>p.classList.toggle('active', i===0));
+  switchView('view-a1test');
+}
+function renderA1Hoeren(){
+  const el = document.getElementById('panel-a1test-hoeren');
+  el.innerHTML = A1TEST_HOEREN.map((item,idx)=>`
+    <div class="wrap" style="padding:24px 20px 0;">
+      <div class="lesson-block">
+        <h4>${item.title}</h4>
+        <div class="hoeren-player">
+          <button class="play-btn" id="a1h-btn-${idx}" data-idx="${idx}">▶ Écouter</button>
+          <button class="link-btn" onclick="document.getElementById('a1h-tr-${idx}').classList.toggle('shown')">Afficher / masquer la transcription</button>
+          <div class="hoeren-transcript" id="a1h-tr-${idx}">${item.text}</div>
+        </div>
+        <div id="a1h-ex-${idx}"></div>
+      </div>
+    </div>`).join('');
+  el.querySelectorAll('.play-btn[data-idx]').forEach(btn=>{
+    btn.onclick = ()=>playTextBtn(A1TEST_HOEREN[parseInt(btn.dataset.idx)].text, btn.id);
+  });
+  A1TEST_HOEREN.forEach((item,idx)=>renderExercise(`a1h-ex-${idx}`, item.questions, 'ref'));
+}
+function renderA1Lesen(){
+  const el = document.getElementById('panel-a1test-lesen');
+  el.innerHTML = A1TEST_LESEN.map((item,idx)=>`
+    <div class="wrap" style="padding:24px 20px 0;">
+      <div class="lesson-block">
+        <h4>${item.title}</h4>
+        <div class="explain-box" style="white-space:pre-line;">${item.text}</div>
+        <div id="a1l-ex-${idx}" style="margin-top:14px;"></div>
+      </div>
+    </div>`).join('');
+  A1TEST_LESEN.forEach((item,idx)=>renderExercise(`a1l-ex-${idx}`, item.questions, 'ref'));
+}
+function renderA1Schreiben(){
+  const el = document.getElementById('panel-a1test-schreiben');
+  const t = A1TEST_SCHREIBEN;
+  el.innerHTML = `
+    <div class="wrap" style="padding:24px 20px 40px;">
+      <div class="lesson-block">
+        <h4>Aufgabe</h4>
+        <div class="explain-box">
+          <div class="rule">${t.prompt}</div>
+          ${t.points.map(p=>`<div class="example-line"><span class="example-de">• ${p}</span></div>`).join('')}
+        </div>
+      </div>
+      <div class="lesson-block">
+        <h4>Dein Text</h4>
+        <textarea id="a1-schreiben-input" rows="8" style="width:100%; border:1px solid var(--line); border-radius:var(--radius-m); padding:14px; font-family:var(--font-body); font-size:15px; background:var(--card-bg); color:var(--ink);" placeholder="Schreib hier deine Nachricht…"></textarea>
+        <button class="link-btn" style="margin-top:12px;" onclick="document.getElementById('a1-schreiben-model').classList.toggle('shown')">Musterlösung anzeigen / masquer</button>
+        <div class="hoeren-transcript" id="a1-schreiben-model" style="white-space:pre-line;">${t.model}</div>
+      </div>
+    </div>`;
+}
+
+/* ================= A1-TESTTRAINING (fin) ================= */
+const A1TEST_HOEREN = [
+  {title:"Teil 1 — Durchsage", text:"Achtung, eine Durchsage! Der Zug nach Frankfurt fährt heute von Gleis fünf, nicht von Gleis drei.",
+    questions:[{q:"Von welchem Gleis fährt der Zug?", opts:["Gleis 3","Gleis 5","Gleis 7"], a:1}]},
+  {title:"Teil 2 — Gespräch in der Bäckerei", text:"Guten Tag, was möchten Sie? Ich möchte zwei Brötchen und ein Stück Kuchen, bitte. Das macht zusammen vier Euro fünfzig.",
+    questions:[{q:"Was kauft die Kundin?", opts:["Nur Brötchen","Brötchen und Kuchen","Nur Kuchen"], a:1},{q:"Wie viel kostet der Einkauf?", opts:["3,50 Euro","4,50 Euro","5,50 Euro"], a:1}]},
+  {title:"Teil 3 — Anrufbeantworter", text:"Hallo, hier ist Frau Berger von der Arztpraxis. Ihr Termin am Montag ist leider abgesagt. Bitte rufen Sie uns zurück, um einen neuen Termin zu vereinbaren.",
+    questions:[{q:"Wer ruft an?", opts:["Ein Freund","Die Arztpraxis","Die Schule"], a:1},{q:"Was ist mit dem Termin am Montag?", opts:["Er bleibt wie geplant","Er ist abgesagt","Er ist auf Dienstag verschoben"], a:1}]}
+];
+const A1TEST_LESEN = [
+  {title:"Teil 1 — Kurze Nachricht", text:"Liebe Anna,\nich komme heute später nach Hause, weil ich noch einkaufen muss. Das Essen ist im Kühlschrank.\nBis später!\nTom",
+    questions:[{q:"Tom kommt später nach Hause.", opts:["Richtig","Falsch"], a:0},{q:"Tom hat schon eingekauft.", opts:["Richtig","Falsch"], a:1}]},
+  {title:"Teil 2 — Anzeigen", text:"Anzeige A: Fahrrad zu verkaufen, gebraucht, 50 Euro.\nAnzeige B: Zimmer frei ab 1. März, 300 Euro pro Monat, zentral gelegen.\nAnzeige C: Deutschkurs für Anfänger, montags und mittwochs, 18 Uhr.",
+    questions:[{q:"Sie suchen eine Wohnung. Welche Anzeige passt?", opts:["Anzeige A","Anzeige B","Anzeige C"], a:1},{q:"Sie möchten Deutsch lernen. Welche Anzeige passt?", opts:["Anzeige A","Anzeige B","Anzeige C"], a:2}]},
+  {title:"Teil 3 — Hinweisschild", text:"Vorsicht! Der Eingang ist wegen Renovierung geschlossen. Bitte benutzen Sie den Seiteneingang.",
+    questions:[{q:"Was bedeutet das Schild?", opts:["Der Haupteingang ist offen","Man muss den Seiteneingang benutzen","Das Geschäft ist geschlossen"], a:1}]}
+];
+const A1TEST_SCHREIBEN = {
+  prompt:"Schreiben Sie eine kurze Nachricht an eine Freundin / einen Freund.",
+  points:["Sagen Sie, warum Sie zur Verabredung nicht kommen können.","Schlagen Sie einen neuen Termin vor.","Entschuldigen Sie sich."],
+  model:"Liebe Sofia,\nleider kann ich heute Abend nicht kommen, weil ich krank bin. Können wir uns stattdessen am Samstag treffen? Es tut mir sehr leid.\nLiebe Grüße,\nSarah"
+};
+
+/* ================= STATE ================= */
+let state = loadState();
+function defaultState(){
+  return {userName:null, xp:0, streak:0, lastDate:null, badges:[], progress:{}, placementDone:false, recommendedLevel:null};
+}
+function loadState(){
+  try{
+    const raw = localStorage.getItem('sprachpfad_state_v1');
+    if(!raw) return defaultState();
+    return Object.assign(defaultState(), JSON.parse(raw));
+  }catch(e){ return defaultState(); }
+}
+function saveState(){
+  try{ localStorage.setItem('sprachpfad_state_v1', JSON.stringify(state)); }catch(e){}
+}
+function touchStreak(){
+  const today = new Date().toDateString();
+  if(state.lastDate === today) return;
+  const y = new Date(); y.setDate(y.getDate()-1);
+  if(state.lastDate === y.toDateString()){ state.streak += 1; } else { state.streak = 1; }
+  state.lastDate = today;
+  if(state.streak >= 7) awardBadge('streak7');
+  saveState();
+}
+function markProgress(levelId, themeId, skill){
+  state.progress[levelId] = state.progress[levelId] || {};
+  state.progress[levelId][themeId] = state.progress[levelId][themeId] || {};
+  state.progress[levelId][themeId][skill] = true;
+  saveState();
+}
+function isDone(levelId, themeId, skill){
+  return !!(state.progress[levelId] && state.progress[levelId][themeId] && state.progress[levelId][themeId][skill]);
+}
+function themeProgressCount(levelId, themeId){
+  const skills=['grammar','vocab','redemittel','hoeren'];
+  return skills.filter(s=>isDone(levelId,themeId,s)).length;
+}
+function levelProgressPct(level){
+  let total=0, done=0;
+  level.themes.forEach(t=>{ total+=4; done+=themeProgressCount(level.id,t.id); });
+  return total? Math.round(done/total*100):0;
+}
+function awardBadge(id){
+  if(state.badges.includes(id)) return;
+  state.badges.push(id);
+  saveState();
+  const b = BADGES_CATALOG.find(x=>x.id===id);
+  if(b) showToast(b.ic+' Badge freigeschaltet: '+b.name);
+}
+function addXP(n){
+  state.xp += n; saveState(); updateHeaderStats();
+}
+function checkGlobalBadges(){
+  let gCount=0, vCount=0, hCount=0;
+  Object.keys(state.progress).forEach(lvl=>{
+    Object.keys(state.progress[lvl]).forEach(th=>{
+      if(state.progress[lvl][th].grammar) gCount++;
+      if(state.progress[lvl][th].vocab) vCount++;
+      if(state.progress[lvl][th].hoeren) hCount++;
+    });
+  });
+  if(gCount+vCount+hCount>=1) awardBadge('first');
+  if(gCount>=5) awardBadge('grammar5');
+  if(vCount>=10) awardBadge('vocab10');
+  if(hCount>=5) awardBadge('hoeren5');
+}
+
+/* ================= NAVIGATION ================= */
+function switchView(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0, behavior:'instant'});
+}
+function goHero(){ renderHeroPath(); updateGreeting(); switchView('view-hero'); }
+function showLevelMap(){ renderLevelMap(); switchView('view-map'); }
+function showProfile(){ renderBadges(); renderProfileName(); switchView('view-profile'); }
+
+/* ================= HERO ================= */
+function updateGreeting(){
+  const el = document.getElementById('hero-greeting');
+  el.textContent = state.userName ? `Salut, ${state.userName} 👋` : 'Von A1 bis C1';
+}
+function renderHeroPath(){
+  const el = document.getElementById('hero-path-preview');
+  el.innerHTML = LEVELS.map((lvl,i)=>{
+    const pct = levelProgressPct(lvl);
+    const filled = pct>0 || (state.recommendedLevel===lvl.id);
+    return `<div class="step ${filled?'filled':''}"><div class="bar"></div><div class="dot"></div><div class="lbl">${lvl.id}</div></div>`;
+  }).join('');
+}
+
+/* ================= INSCRIPTION (prénom local) ================= */
+function submitSignup(){
+  const input = document.getElementById('signup-name-input');
+  const name = input.value.trim();
+  if(!name){ input.focus(); return; }
+  state.userName = name.slice(0,30);
+  saveState();
+  goHero();
+}
+function renderProfileName(){
+  const el = document.getElementById('profile-name-display');
+  if(el) el.textContent = state.userName || '—';
+}
+function editUserName(){
+  const current = state.userName || '';
+  const next = prompt('Ton prénom ou pseudo :', current);
+  if(next===null) return;
+  const trimmed = next.trim();
+  if(!trimmed) return;
+  state.userName = trimmed.slice(0,30);
+  saveState();
+  updateGreeting();
+  renderProfileName();
+  showToast('Prénom mis à jour ✓');
+}
+
+/* ================= PLACEMENT TEST ================= */
+let testIdx=0, testAnswers=[];
+function startPlacement(){
+  testIdx=0; testAnswers=[];
+  switchView('view-test');
+  renderTestQ();
+}
+function renderTestQ(){
+  const item = PLACEMENT[testIdx];
+  document.getElementById('test-q-label').textContent = `Question ${testIdx+1}/${PLACEMENT.length}`;
+  document.getElementById('test-progress-fill').style.width = Math.round((testIdx)/PLACEMENT.length*100)+'%';
+  document.getElementById('test-q-text').textContent = item.q;
+  const optsEl = document.getElementById('test-opts');
+  optsEl.innerHTML = item.opts.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('');
+  optsEl.querySelectorAll('.opt').forEach(btn=>{
+    btn.onclick = ()=>{
+      const i = parseInt(btn.dataset.i);
+      optsEl.querySelectorAll('.opt').forEach(b=>b.style.pointerEvents='none');
+      const ok = (i===item.a);
+      testAnswers.push(ok);
+      if(ok){ btn.classList.add('correct'); }
+      else { btn.classList.add('incorrect'); optsEl.children[item.a].classList.add('correct'); }
+      setTimeout(()=>{
+        testIdx++;
+        if(testIdx < PLACEMENT.length) renderTestQ();
+        else finishPlacement();
+      }, 650);
+    };
+  });
+}
+function finishPlacement(){
+  document.getElementById('test-progress-fill').style.width='100%';
+  /* Logique par palier : on avance d'un niveau seulement si le palier précédent
+     est réellement maîtrisé (peu d'erreurs tolérées). Un score élevé sur une
+     seule question difficile ne suffit plus à faire sauter des niveaux. */
+  const buckets = [0,0,0,0,0].map(()=>({correct:0,total:0}));
+  PLACEMENT.forEach((item,i)=>{
+    buckets[item.lvl].total++;
+    if(testAnswers[i]) buckets[item.lvl].correct++;
+  });
+  let recIdx = 0;
+  for(let lvl=0; lvl<5; lvl++){
+    const b = buckets[lvl];
+    const needed = Math.max(b.total-1, Math.ceil(b.total*0.66));
+    if(b.total>0 && b.correct>=needed){
+      recIdx = lvl<4 ? lvl+1 : lvl; // ce palier est maîtrisé, on vise le suivant
+    } else {
+      recIdx = lvl; // ce palier n'est pas maîtrisé : c'est là qu'il faut travailler
+      break;
+    }
+  }
+  if(recIdx>4) recIdx=4;
+  if(recIdx<0) recIdx=0;
+  state.placementDone = true;
+  state.recommendedLevel = LEVELS[recIdx].id;
+  saveState();
+  showToast('Niveau recommandé : '+LEVELS[recIdx].id);
+  showLevelMap();
+}
+
+/* ================= LEVEL MAP ================= */
+function renderLevelMap(){
+  const el = document.getElementById('level-path');
+  el.innerHTML = LEVELS.map((lvl,i)=>{
+    const pct = levelProgressPct(lvl);
+    const unlocked = i===0 || levelProgressPct(LEVELS[i-1])>0 || state.recommendedLevel===lvl.id || pct>0;
+    const mastered = pct===100;
+    const nodeClass = mastered? 'mastered' : (unlocked? 'unlocked':'');
+    const cardClass = unlocked? '' : 'locked';
+    const rec = state.recommendedLevel===lvl.id ? ' · recommandé pour toi' : '';
+    return `
+    <div class="level-row">
+      <div class="connector"></div>
+      <div class="level-node ${nodeClass}">${mastered?'✓':lvl.id}</div>
+      <div class="level-card ${cardClass}" ${unlocked?`onclick="openDashboard('${lvl.id}')"`:''}>
+        <div>
+          <div class="level-card-title">${lvl.id} — ${lvl.label}</div>
+          <div class="level-card-sub">${lvl.desc}${rec}</div>
+        </div>
+        ${ringSVG(pct)}
+      </div>
+    </div>`;
+  }).join('');
+}
+function ringSVG(pct){
+  const r=22, c=2*Math.PI*r;
+  const offset = c - (pct/100)*c;
+  return `<svg class="ring level-progress-mini" viewBox="0 0 56 56">
+    <circle class="ring-bg" cx="28" cy="28" r="${r}"></circle>
+    <circle class="ring-fg" cx="28" cy="28" r="${r}" stroke-dasharray="${c}" stroke-dashoffset="${offset}" transform="rotate(-90 28 28)"></circle>
+    <text x="28" y="32" text-anchor="middle" font-size="12" font-family="IBM Plex Sans" fill="var(--ink)">${pct}%</text>
+  </svg>`;
+}
+
+/* ================= DASHBOARD ================= */
+let currentLevel=null;
+function openDashboard(levelId){
+  currentLevel = LEVELS.find(l=>l.id===levelId);
+  document.getElementById('dash-level-title').textContent = currentLevel.label;
+  document.getElementById('dash-level-tag').textContent = currentLevel.id;
+  document.getElementById('dash-level-desc').textContent = currentLevel.desc;
+  const grid = document.getElementById('theme-grid');
+  grid.innerHTML = currentLevel.themes.map(t=>{
+    const n = themeProgressCount(currentLevel.id, t.id);
+    const pips = [0,1,2,3].map(i=>`<span class="pip ${i<n?'done':''}"></span>`).join('');
+    return `<div class="theme-card" onclick="openTheme('${currentLevel.id}','${t.id}')">
+      <h3>${t.title}</h3>
+      <p>${t.sub}</p>
+      <div class="pill-row">${pips}</div>
+      <div class="skill-labels"><span>Grammatik</span><span>Wortschatz</span><span>Redemittel</span><span>Hören</span></div>
+    </div>`;
+  }).join('');
+  if(levelId==='A1'){
+    grid.innerHTML += `<div class="theme-card" onclick="openA1Test()" style="border-color:var(--gold);">
+      <h3>🎯 Testtraining</h3>
+      <p>Exercices au format de l'examen Start Deutsch 1 (Hören, Lesen, Schreiben)</p>
+      <div class="skill-labels"><span>Hören</span><span>Lesen</span><span>Schreiben</span></div>
+    </div>`;
+  }
+  touchStreak();
+  switchView('view-dashboard');
+}
+
+/* ================= THEME / SKILL VIEW ================= */
+let currentTheme=null, currentSpeechText=null;
+function openTheme(levelId, themeId){
+  currentLevel = LEVELS.find(l=>l.id===levelId);
+  currentTheme = currentLevel.themes.find(t=>t.id===themeId);
+  document.getElementById('skill-title').textContent = currentTheme.title;
+  document.getElementById('skill-back').onclick = ()=>openDashboard(levelId);
+  document.getElementById('skill-tabs').innerHTML = `
+    <button class="tab-btn active" data-tab="grammar">Grammatik</button>
+    <button class="tab-btn" data-tab="vocab">Wortschatz</button>
+    <button class="tab-btn" data-tab="redemittel">Redemittel</button>
+    <button class="tab-btn" data-tab="hoeren">Hören</button>`;
+  document.querySelectorAll('#skill-tabs .tab-btn').forEach(b=>{
+    b.onclick = ()=>selectTab(b.dataset.tab);
+  });
+  renderGrammar(); renderVocab(); renderRedemittel(); renderHoeren();
+  selectTab('grammar');
+  switchView('view-skill');
+}
+function selectTab(tab){
+  document.querySelectorAll('#skill-tabs .tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+tab).classList.add('active');
+}
+
+function renderGrammar(){
+  const g = currentTheme.grammar;
+  const el = document.getElementById('panel-grammar');
+  el.innerHTML = `
+    <div class="lesson-block">
+      <h4>Règle</h4>
+      <div class="explain-box">
+        <div class="rule"><strong>${g.title}.</strong> ${g.rule}</div>
+        ${g.examples.map(([de,fr])=>`<div class="example-line"><span class="example-de">${de}</span><span class="example-fr">— ${fr}</span></div>`).join('')}
+      </div>
+    </div>
+    <div id="grammar-exercise"></div>`;
+  renderExercise('grammar-exercise', g.quiz.map(q=>({q:q.q, opts:q.opts, a:q.a})), 'grammar');
+}
+
+function renderVocab(){
+  const v = currentTheme.vocab;
+  const el = document.getElementById('panel-vocab');
+  el.innerHTML = `
+    <div class="lesson-block">
+      <h4>Vocabulaire — clique pour retourner</h4>
+      <div class="flash-grid">${v.items.map(([de,fr],i)=>`
+        <div class="flashcard" onclick="this.classList.toggle('flipped')">
+          <div class="flashcard-inner">
+            <div class="flash-face flash-front">${de}</div>
+            <div class="flash-face flash-back">${fr}</div>
+          </div>
+        </div>`).join('')}</div>
+    </div>
+    <div id="vocab-exercise"></div>`;
+  renderExercise('vocab-exercise', v.quiz.map(q=>({q:q.q, opts:q.opts, a:q.a})), 'vocab');
+}
+
+function renderRedemittel(){
+  const r = currentTheme.redemittel;
+  const el = document.getElementById('panel-redemittel');
+  el.innerHTML = `
+    <div class="lesson-block">
+      <h4>Expressions clés — Schreiben & Sprechen</h4>
+      <div class="redemittel-list">${r.items.map(([p,u])=>`
+        <div class="rm-card"><div class="rm-phrase">${p}</div><div class="rm-use">${u}</div></div>`).join('')}</div>
+    </div>
+    <div id="redemittel-exercise"></div>`;
+  renderExercise('redemittel-exercise', r.quiz.map(q=>({q:q.q, opts:q.opts, a:q.a})), 'redemittel');
+}
+
+function renderHoeren(){
+  const h = currentTheme.hoeren;
+  currentSpeechText = h.text;
+  const el = document.getElementById('panel-hoeren');
+  el.innerHTML = `
+    <div class="hoeren-player">
+      <button class="play-btn" id="play-audio-btn" onclick="playAudio()">▶ Écouter le dialogue</button>
+      <button class="link-btn" onclick="document.getElementById('transcript-box').classList.toggle('shown')">Afficher / masquer la transcription</button>
+      <div class="hoeren-transcript" id="transcript-box">${h.text}</div>
+    </div>
+    <div id="hoeren-exercise"></div>`;
+  renderExercise('hoeren-exercise', h.questions.map(q=>({q:q.q, opts:q.opts, a:q.a})), 'hoeren');
+}
+function playTextBtn(text, btnId){
+  const btn = document.getElementById(btnId);
+  if(!('speechSynthesis' in window)){
+    btn.textContent = 'Audio non disponible dans ce navigateur';
+    btn.disabled = true;
+    return;
+  }
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'de-DE';
+  utter.rate = 0.85;
+  btn.disabled = true;
+  const original = btn.dataset.label || btn.textContent;
+  btn.dataset.label = original;
+  btn.textContent = '🔊 Lecture en cours…';
+  utter.onend = ()=>{ btn.disabled=false; btn.textContent=original; };
+  utter.onerror = ()=>{ btn.disabled=false; btn.textContent=original; };
+  window.speechSynthesis.speak(utter);
+}
+function playAudio(){
+  const btn = document.getElementById('play-audio-btn');
+  if(!('speechSynthesis' in window)){
+    btn.textContent = 'Audio non disponible dans ce navigateur';
+    btn.disabled = true;
+    return;
+  }
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(currentSpeechText);
+  utter.lang = 'de-DE';
+  utter.rate = 0.88;
+  btn.disabled = true;
+  btn.textContent = '🔊 Lecture en cours…';
+  utter.onend = ()=>{ btn.disabled=false; btn.textContent='▶ Écouter le dialogue'; };
+  utter.onerror = ()=>{ btn.disabled=false; btn.textContent='▶ Écouter le dialogue'; };
+  window.speechSynthesis.speak(utter);
+}
+
+/* Generic exercise renderer */
+function renderExercise(containerId, questions, skillKey){
+  const el = document.getElementById(containerId);
+  const box = document.createElement('div');
+  box.className = 'exercise-box';
+  box.innerHTML = `<h4>Exercice</h4><div id="${containerId}-qs"></div>`;
+  el.appendChild(box);
+  const qsEl = box.querySelector(`#${containerId}-qs`);
+  let answered = new Array(questions.length).fill(false);
+  let correctCount = 0;
+  questions.forEach((q,qi)=>{
+    const qBlock = document.createElement('div');
+    qBlock.className='q-block';
+    qBlock.innerHTML = `<div class="q-text">${qi+1}. ${q.q}</div>
+      <div class="opt-list">${q.opts.map((o,oi)=>`<button class="opt" data-oi="${oi}">${o}</button>`).join('')}</div>
+      <div class="q-feedback" style="display:none;"></div>`;
+    qsEl.appendChild(qBlock);
+    qBlock.querySelectorAll('.opt').forEach(btn=>{
+      btn.onclick = ()=>{
+        if(answered[qi]) return;
+        answered[qi]=true;
+        const oi = parseInt(btn.dataset.oi);
+        const fb = qBlock.querySelector('.q-feedback');
+        qBlock.querySelectorAll('.opt').forEach(b=>b.style.pointerEvents='none');
+        if(oi===q.a){
+          btn.classList.add('correct'); correctCount++;
+          fb.textContent='Richtig !'; fb.className='q-feedback ok'; fb.style.display='block';
+        }else{
+          btn.classList.add('incorrect');
+          qBlock.querySelectorAll('.opt')[q.a].classList.add('correct');
+          fb.textContent='Presque — la bonne réponse est surlignée.'; fb.className='q-feedback bad'; fb.style.display='block';
+        }
+        if(answered.every(Boolean)){
+          finishExercise(box, correctCount, questions.length, skillKey);
+        }
+      };
+    });
+  });
+}
+function finishExercise(box, correct, total, skillKey){
+  const isThemeSkill = skillKey!=='ref' && currentLevel && currentTheme;
+  if(isThemeSkill){
+    markProgress(currentLevel.id, currentTheme.id, skillKey);
+  }
+  const xpGain = correct*10;
+  addXP(xpGain);
+  checkGlobalBadges();
+  if(isThemeSkill && themeProgressCount(currentLevel.id, currentTheme.id)===4){
+    awardBadge('themedone');
+  }
+  if(isThemeSkill && levelProgressPct(currentLevel)===100){
+    awardBadge('leveldone');
+  }
+  const result = document.createElement('div');
+  result.className='exercise-result';
+  result.innerHTML = `<div class="score">${correct}/${total}</div><p>+${xpGain} XP gagnés</p>`;
+  box.appendChild(result);
+  showToast(`+${xpGain} XP`);
+}
+
+/* ================= BADGES ================= */
+function exportProgress(){
+  const payload = {
+    app:'Sprachfluency',
+    exportedAt: new Date().toISOString(),
+    version: 1,
+    state: state
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const dateStr = new Date().toISOString().slice(0,10);
+  a.href = url;
+  a.download = `sprachfluency-sauvegarde-${dateStr}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('Sauvegarde exportée ✓');
+}
+function importProgress(event){
+  const file = event.target.files && event.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ()=>{
+    try{
+      const parsed = JSON.parse(reader.result);
+      const incoming = parsed && parsed.state ? parsed.state : parsed;
+      if(!incoming || typeof incoming.xp !== 'number' || typeof incoming.progress !== 'object'){
+        showToast('Fichier de sauvegarde invalide');
+        return;
+      }
+      state = Object.assign(defaultState(), incoming);
+      saveState();
+      updateHeaderStats();
+      renderBadges();
+      showToast('Progression importée ✓');
+    }catch(e){
+      showToast('Impossible de lire ce fichier');
+    }
+    event.target.value = '';
+  };
+  reader.onerror = ()=>{ showToast('Erreur de lecture du fichier'); };
+  reader.readAsText(file);
+}
+
+function renderBadges(){
+  const el = document.getElementById('badge-shelf');
+  el.innerHTML = BADGES_CATALOG.map(b=>{
+    const earned = state.badges.includes(b.id);
+    return `<div class="badge-chip" style="opacity:${earned?1:.4}"><span class="ic">${b.ic}</span>${b.name}</div>`;
+  }).join('');
+}
+
+/* ================= SUJETS D'EXAMEN ================= */
+let currentTopic=null;
+function openThemen(){
+  const grid = document.getElementById('themen-grid');
+  grid.innerHTML = EXAM_TOPICS.map(t=>`
+    <div class="theme-card" onclick="openTopicDetail('${t.id}')">
+      <h3>${t.title}</h3>
+      <p>${t.frage}</p>
+      <div class="skill-labels"><span>${t.vorteile.length} Vorteile</span><span>${t.nachteile.length} Nachteile</span></div>
+    </div>`).join('');
+  switchView('view-themen');
+}
+function openTopicDetail(topicId){
+  currentTopic = EXAM_TOPICS.find(t=>t.id===topicId);
+  document.getElementById('themen-detail-title').textContent = currentTopic.title;
+  document.getElementById('themen-detail-frage').textContent = currentTopic.frage;
+  const el = document.getElementById('themen-detail-content');
+  el.innerHTML = `
+    <div class="lesson-block">
+      <h4>Vorteile</h4>
+      <div class="redemittel-list">${currentTopic.vorteile.map(v=>`<div class="rm-card" style="border-left-color:var(--gold);"><div class="rm-phrase">${v}</div></div>`).join('')}</div>
+    </div>
+    <div class="lesson-block">
+      <h4>Nachteile</h4>
+      <div class="redemittel-list">${currentTopic.nachteile.map(n=>`<div class="rm-card" style="border-left-color:var(--brick);"><div class="rm-phrase">${n}</div></div>`).join('')}</div>
+    </div>
+    <div class="lesson-block">
+      <h4>À toi de jouer : Vorteil oder Nachteil ?</h4>
+      <p style="color:var(--ink-soft); font-size:14px; margin-bottom:10px;">Pour chaque phrase, indique s'il s'agit d'un avantage ou d'un inconvénient.</p>
+      <div id="topic-exercise"></div>
+    </div>`;
+  const quiz = buildProConQuiz(currentTopic);
+  renderExercise('topic-exercise', quiz, 'ref');
+  switchView('view-themen-detail');
+}
+function buildProConQuiz(topic){
+  const statements = [
+    ...topic.vorteile.map(s=>({q:s, opts:["Vorteil","Nachteil"], a:0})),
+    ...topic.nachteile.map(s=>({q:s, opts:["Vorteil","Nachteil"], a:1}))
+  ];
+  return statements;
+}
+
+/* ================= RÉFÉRENCE ================= */
+function openReference(){
+  document.querySelectorAll('#ref-tabs .tab-btn').forEach(b=>{
+    b.onclick = ()=>selectRefTab(b.dataset.tab);
+  });
+  renderRefVerben();
+  renderRefDeklination();
+  renderRefKonjugation();
+  renderRefModal();
+  renderRefZeit();
+  selectRefTab('ref-verben');
+  switchView('view-reference');
+}
+function selectRefTab(tab){
+  document.querySelectorAll('#ref-tabs .tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab));
+  document.querySelectorAll('#view-reference .tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+tab).classList.add('active');
+}
+function buildTable(head, rows){
+  return `<div class="table-scroll"><table class="ref-table">
+    <thead><tr>${head.map(h=>`<th>${h}</th>`).join('')}</tr></thead>
+    <tbody>${rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody>
+  </table></div>`;
+}
+function renderRefVerben(){
+  const el = document.getElementById('panel-ref-verben');
+  el.innerHTML = `
+    <div class="ref-block">
+      <h4>Infinitif · présent (si irrégulier) · prétérit · participe II · traduction</h4>
+      ${buildTable(["Infinitiv","Präsens","Präteritum","Partizip II","Traduction"], IRREGULAR_VERBS)}
+    </div>
+    <div id="ref-verben-exercise"></div>`;
+  renderExercise('ref-verben-exercise', IRREGULAR_VERBS_QUIZ, 'ref');
+}
+function renderRefDeklination(){
+  const el = document.getElementById('panel-ref-deklination');
+  el.innerHTML = `
+    <div class="ref-block"><h4>${DECLENSION_TABLES.bestimmt.title}</h4>${buildTable(DECLENSION_TABLES.bestimmt.head, DECLENSION_TABLES.bestimmt.rows)}</div>
+    <div class="ref-block"><h4>${DECLENSION_TABLES.unbestimmt.title}</h4>${buildTable(DECLENSION_TABLES.unbestimmt.head, DECLENSION_TABLES.unbestimmt.rows)}</div>
+    <div class="ref-block"><h4>${DECLENSION_TABLES.ohne.title}</h4>${buildTable(DECLENSION_TABLES.ohne.head, DECLENSION_TABLES.ohne.rows)}</div>
+    <div class="ref-block"><h4>${PRONOUN_TABLE.title}</h4>${buildTable(PRONOUN_TABLE.head, PRONOUN_TABLE.rows)}</div>
+    <div class="ref-block"><h4>${POSSESSIVE_TABLE.title}</h4>${buildTable(POSSESSIVE_TABLE.head, POSSESSIVE_TABLE.rows)}</div>
+    <div id="ref-deklination-exercise"></div>`;
+  renderExercise('ref-deklination-exercise', DECLENSION_QUIZ, 'ref');
+}
+function renderRefKonjugation(){
+  const el = document.getElementById('panel-ref-konjugation');
+  el.innerHTML = `
+    ${CONJUGATION_REF.blocks.map(b=>`
+      <div class="ref-block">
+        <h4>${b.title}</h4>
+        <div class="explain-box">${b.lines.map(l=>`<div class="example-line"><span class="example-de">${l}</span></div>`).join('')}</div>
+      </div>`).join('')}
+    <div class="ref-block">
+      <h4>Perfekt, Präteritum et Futur I</h4>
+      <div class="explain-box">
+        <div class="rule">${CONJUGATION_REF.rule}</div>
+        ${CONJUGATION_REF.examples.map(([de,fr])=>`<div class="example-line"><span class="example-de">${de}</span><span class="example-fr">— ${fr}</span></div>`).join('')}
+      </div>
+    </div>
+    <div id="ref-konjugation-exercise"></div>`;
+  renderExercise('ref-konjugation-exercise', CONJUGATION_QUIZ, 'ref');
+}
+
+function renderRefModal(){
+  const el = document.getElementById('panel-ref-modal');
+  el.innerHTML = `
+    <div class="ref-block"><h4>${MODAL_MEANING.title}</h4>${buildTable(MODAL_MEANING.head, MODAL_MEANING.rows)}</div>
+    <div class="ref-block"><h4>${MODAL_PRETERITUM.title}</h4>${buildTable(MODAL_PRETERITUM.head, MODAL_PRETERITUM.rows)}</div>
+    <div class="ref-block">
+      <h4>Règle de position</h4>
+      <div class="explain-box">
+        <div class="rule">${MODAL_RULE}</div>
+        ${MODAL_EXAMPLES.map(([de,fr])=>`<div class="example-line"><span class="example-de">${de}</span><span class="example-fr">— ${fr}</span></div>`).join('')}
+      </div>
+    </div>
+    <div id="ref-modal-exercise"></div>`;
+  renderExercise('ref-modal-exercise', MODAL_QUIZ, 'ref');
+}
+function renderRefZeit(){
+  const el = document.getElementById('panel-ref-zeit');
+  el.innerHTML = ZEIT_CATEGORIES.map(cat=>`
+    <div class="ref-block"><h4>${cat.title}</h4>${buildTable(cat.head, cat.rows)}</div>
+  `).join('') + `<div id="ref-zeit-exercise"></div>`;
+  renderExercise('ref-zeit-exercise', ZEIT_QUIZ, 'ref');
+}
+
+/* ================= HEADER / THEME ================= */
+function updateHeaderStats(){
+  document.querySelector('#stat-streak b').textContent = state.streak;
+  document.querySelector('#stat-xp b').textContent = state.xp;
+}
+function toggleTheme(){
+  const root = document.documentElement;
+  const cur = root.getAttribute('data-theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  let next;
+  if(!cur) next = prefersDark ? 'light':'dark';
+  else next = cur==='dark' ? 'light':'dark';
+  root.setAttribute('data-theme', next);
+  document.getElementById('theme-toggle').textContent = next==='dark' ? '☀':'☾';
+  try{ localStorage.setItem('sprachpfad_theme', next); }catch(e){}
+}
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(()=>t.classList.remove('show'), 2400);
+}
+
+/* ================= BOOTSTRAP ================= */
+(function init(){
+  try{
+    const savedTheme = localStorage.getItem('sprachpfad_theme');
+    if(savedTheme){ document.documentElement.setAttribute('data-theme', savedTheme); document.getElementById('theme-toggle').textContent = savedTheme==='dark'?'☀':'☾'; }
+  }catch(e){}
+  updateHeaderStats();
+  renderHeroPath();
+  updateGreeting();
+  if(!state.userName){
+    switchView('view-signup');
+  }
+  // add profile access via long-press on brand? simplest: add a link in header stats
+  const statsEl = document.querySelector('.header-stats');
+  const profBtn = document.createElement('button');
+  profBtn.className='stat-pill'; profBtn.style.cursor='pointer'; profBtn.innerHTML='🏅';
+  profBtn.onclick = showProfile;
+  statsEl.insertBefore(profBtn, document.getElementById('theme-toggle'));
+  document.getElementById('signup-name-input').addEventListener('keydown', (e)=>{ if(e.key==='Enter') submitSignup(); });
+})();
+</script>
+</body>
+</html>
